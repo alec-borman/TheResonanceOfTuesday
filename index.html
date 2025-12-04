@@ -35,7 +35,7 @@
             background-size: 40px 40px;
         }
 
-        /* === TERMINAL / TREE STYLES (NEW) === */
+        /* === TERMINAL / TREE STYLES === */
         .cmd-term {
             color: #22d3ee;
             border-bottom: 1px dashed #22d3ee;
@@ -161,14 +161,15 @@
     <section id="read" class="py-24 bg-black border-y border-slate-800">
         <div class="container mx-auto px-6 max-w-4xl">
             
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
                 <div class="flex items-center gap-2">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
                     <span class="ml-4 font-mono text-xs text-slate-500">/usr/bin/Arthur/logs/</span>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 items-center">
+                    <button id="btn-expand" class="mr-4 text-xs font-mono text-cyan-400 hover:text-white uppercase tracking-widest">[+] EXPAND ALL NOTES</button>
                     <button onclick="loadChapter(1)" id="btn-1" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400 active">Ch.01</button>
                     <button onclick="loadChapter(2)" id="btn-2" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400">Ch.02</button>
                     <button onclick="loadChapter(3)" id="btn-3" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400">Ch.03</button>
@@ -264,17 +265,37 @@
             }
         };
 
-        // 3. CHAPTER CONTENT
-        // Using "createTrigger" inside the P tag, and appending "createNote" AFTER the P tag
+        // EXPAND ALL LOGIC
+        const expandBtn = document.getElementById('btn-expand');
+        expandBtn.addEventListener('click', () => {
+            const allLogs = document.querySelectorAll('.tree-log');
+            const isAnyClosed = Array.from(allLogs).some(log => !log.classList.contains('open'));
+
+            allLogs.forEach(log => {
+                if (isAnyClosed) {
+                    log.classList.add('open');
+                    expandBtn.innerText = "[-] COLLAPSE ALL NOTES";
+                } else {
+                    log.classList.remove('open');
+                    expandBtn.innerText = "[+] EXPAND ALL NOTES";
+                }
+            });
+        });
+
+        // 3. CHAPTER CONTENT (FULL VERBATIM TEXT)
         const chapters = {
             1: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. The Signal-to-Noise Ratio</h3>
-                
                 <p class="mb-6">The Universe is not a composition; it is ${createTrigger('note-feedback', 'feedback')}.</p>
                 ${createNote('note-feedback', 'FEEDBACK', 'The return of a fraction of the output signal to the input.', 'The Universe isn\'t a song; it\'s the sound of itself screaming into a microphone.')}
+
+                <p class="mb-6">It does not begin with a melodic hum. It begins with the screech of an ungrounded amplifier, a sprawling, uncontrolled explosion of data that has spent the subsequent fourteen billion years trying to find a ground wire.</p>
+                <p class="mb-6">If you listen to the cosmos—really listen, past the romantic static of the poets and the smoothed-over JPEGs of the astronomers—you do not hear a symphony. You hear the ambient roar of a celestial warehouse run by an absentee landlord who has lost the inventory list and is hoping the auditors don't notice the smell of burning hydrogen.</p>
                 
                 <p class="mb-6">There are stars that burn with the frantic, desperate energy of a lightbulb realizing it is about to die. There are black holes that sit in the center of galaxies like cosmic plugholes, dragging light and time into a ${createTrigger('note-singularity', 'singularity')} of infinite density just to keep the floor clean.</p>
                 ${createNote('note-singularity', 'SINGULARITY', 'A point in space-time of infinite density.', 'A place where the math breaks because everything is piled in one spot.')}
+
+                <p class="mb-6">And then, buried under layers of interstellar dust and administrative negligence, there is the Solar System. It is a neighborhood defined by clutter.</p>
 
                 <p class="mb-6">For the vast majority of human history, the species looked up at the night sky through the atmospheric haze and saw a single, pale disc. They called it The Moon. They believed it was special. They believed it was a lonely sentinel watching over their sleep.</p>
 
@@ -282,91 +303,161 @@
                 ${createNote('note-compression', 'COMPRESSION ARTIFACT', 'Distortion caused by reducing data size.', 'Humans only saw one moon because their brains were running in low-resolution.')}
 
                 <p class="mb-6">The Universe, in a fit of aggressive geometry, had not given Earth one moon. It had issued nine.</p>
+                <p class="mb-6">They were identical. Nine grey, pockmarked spheres, roughly two thousand miles across. And, through a feat of orbital mechanics that suggests gravity suffers from a compulsive need to organize its desk, they were arranged in a perfectly straight, radial line extending outward from the planet.</p>
+                <p class="mb-6">Luna 1. Gap. Luna 2. Gap. Luna 3.</p>
                 
                 <p class="mb-6">It was not a queue. It was a ${createTrigger('note-wave', 'Standing Wave')}.</p>
                 ${createNote('note-wave', 'STANDING WAVE', 'A wave that oscillates in time but remains fixed in space.', 'The moons aren\'t moving past us; they are locked in a vibrational grid.')}
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Semantic Friction</h3>
+                <p class="mb-6">Because of this perfect alignment, the first moon completely blocked the view of the other eight. The signal was too strong; it washed out the data behind it. For the entirety of human civilization, the species had been staring at the cosmic equivalent of a dozen clowns hiding behind a single lamppost, assuming it was just a very wide lamppost.</p>
                 
-                <p class="mb-6">Arthur suffered from a condition he called ${createTrigger('note-tinnitus', 'Semantic Tinnitus')}.</p>
+                <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Semantic Friction</h3>
+                <p class="mb-6">Oakhaven was a village in the north of England where the rain fell with a vertical determination that suggested it had a personal vendetta against dryness. It was a place of aggressive moisture, where the moss didn't just grow on the walls; it seemed to be holding them up.</p>
+                
+                <p class="mb-6">At the end of a cul-de-sac called "The Hawthorns" (which contained no hawthorns, but did contain a hedge that held a grudge against the postman), stood a garage. Inside the garage, Arthur Penhaligon was staring at a kettle, and the noise in his head was deafening.</p>
+
+                <p class="mb-6">Arthur was forty years old. He wore heavy wool trousers and cardigans that smelled of solder flux, damp tweed, and Earl Grey tea. He possessed a face that was usually described as "mild," a word that also applies to cheese that isn't trying very hard.</p>
+
+                <p class="mb-6">Arthur was a structural engineer. This meant he spent his life listening to things complain. He knew that skyscrapers groaned when the wind blew. He knew that suspension bridges shivered when trains went over them. But Arthur’s hearing went deeper than that. He suffered from a condition he called ${createTrigger('note-tinnitus', 'Semantic Tinnitus')}.</p>
                 ${createNote('note-tinnitus', 'SEMANTIC TINNITUS', 'A ringing in the ears caused by meaning rather than sound.', 'Arthur literally hears a high-pitched whine when the structural logic of reality is flawed (i.e., a lie).')}
                 
-                <p class="mb-6">The tension of the moons was a ${createTrigger('note-stochastic', 'Stochastic Resonance')} Field. If he could inject just the right amount of gravitational noise into the system—if he could ${createTrigger('note-dither', 'dither')} the signal—he could force the universe to reveal the data it was hiding.</p>
+                <p class="mb-6">He could feel it when things weren't true. A lie felt like a stone in his shoe—sharp, persistent friction. A structural weakness felt like a mosquito whining in his ear. He lived in a world of low-fidelity data, of rounding errors and "good enough" estimates, and it was driving him slowly, quietly mad. Right now, the mosquito was a kettle.</p>
+                <p class="mb-6">"You," Arthur said to the appliance, his voice tight with suppressed frustration, "are a hallucination."</p>
+
+                <p class="mb-6">The kettle sat on the workbench. It was white plastic, stained with the tea of a thousand mornings. It was a Boil-Master 3000, a name that promised a mastery of thermodynamics that the device clearly lacked.</p>
+                
+                <p class="mb-6">Sitting on a stack of Encyclopaedia Britannicas (Volume A-G, heavily annotated) was The Resonance Engine.</p>
+
+                <p class="mb-6">Arthur had built it because he was desperate for silence. He reasoned that if the Earth was being pulled by nine identical gravity wells, then reality wasn't just existing in three dimensions; it was echoing. The tension of the moons was a ${createTrigger('note-stochastic', 'Stochastic Resonance')} Field. If he could inject just the right amount of gravitational noise into the system—if he could ${createTrigger('note-dither', 'dither')} the signal—he could force the universe to reveal the data it was hiding.</p>
                 ${createNote('note-stochastic', 'STOCHASTIC RESONANCE', 'A phenomenon where a signal is boosted by adding noise.', 'Arthur is adding "static" to the universe to force the truth to pop out.')}
                 ${createNote('note-dither', 'DITHER', 'Adding random noise to a signal to smooth out errors.', 'Like shaking a table to get all the coins to settle flat.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. The Implosion of Tuesday</h3>
 
-                <p class="mb-6">It wasn't breaking; it was being crushed by the sheer weight of ${createTrigger('note-expon', 'exponential')} reality.</p>
+                <p class="mb-6">The machine collapsed inward. It wasn't breaking; it was being crushed by the sheer weight of ${createTrigger('note-expon', 'exponential')} reality.</p>
                 ${createNote('note-expon', 'EXPONENTIAL', 'Increasing at a constantly growing rate.', 'Reality folded in on itself over and over.')}
 
-                <p class="mb-6">"I'm the ${createTrigger('note-weights', 'Weights')}!" The Foreman spread his arms wide.</p>
+                <p class="mb-6">There was a blinding flash of cold, silver light. A shockwave of pure, compressed logic knocked Arthur backward into his shelf of jam jars. Then, stillness.</p>
+                
+                <p class="mb-6">"I'm the ${createTrigger('note-weights', 'Weights')}!" The Foreman spread his arms wide, his holographic tie flapping in a non-existent breeze. "I am the Logic! I am the guy who tells you what comes next!"</p>
                 ${createNote('note-weights', 'WEIGHTS', 'Parameters within a neural network.', 'The Foreman is the logic that decides which outcomes are likely in the universe.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The Acid Test</h3>
                 
-                <p class="mb-6">"Yes!" The Foreman punched the air. "${createTrigger('note-conv', 'Convergence')}! We have convergence!"</p>
+                <p class="mb-6">"Yes!" The Foreman punched the air. "${createTrigger('note-conv', 'Convergence')}! We have convergence! That is a successful cycle! That is a kettle that knows who it is!"</p>
                 ${createNote('note-conv', 'CONVERGENCE', 'The point where an algorithm finds the optimal solution.', 'The kettle finally did exactly what it was designed to do.')}
             `,
+
             2: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. Texture Mapping</h3>
                 
-                <p class="mb-6">"Do the villagers just ${createTrigger('note-clip', 'clip')} through the hedges?"</p>
-                ${createNote('note-clip', 'CLIPPING', 'A graphics error where one object passes through another.', 'When a character walks through a wall in a video game because the physics engine failed.')}
+                <p class="mb-6">The rain in Oakhaven did not wash the world clean; it merely added weight to the geometry.</p>
+                <p class="mb-6">Arthur walked down The Hawthorns with the rolling gait of a man who trusts the pavement only as far as he can calculate its load-bearing capacity. In his cardigan pocket, the silver disc hummed—a warm, haptic buzz that felt less like a vibration and more like a very small, very energetic animal trying to dig its way into his hip.</p>
 
-                <p class="mb-6">"Look at that ${createTrigger('note-mesh', 'mesh')}! Low poly count. terrible ${createTrigger('note-tex', 'texture mapping')}. And that cat? It’s stuck in a ${createTrigger('note-loop', 'while(true) loop')}, Arthur!"</p>
+                <p class="mb-6">"Left," the Foreman’s voice said, muffled by the wool. "No, wait. Right. No, definitely left. The pathfinding here is atrocious. Do the villagers just ${createTrigger('note-clip', 'clip')} through the hedges?"</p>
+                ${createNote('note-clip', 'CLIPPING', 'A graphics error where one object passes through another.', 'When a character walks through a wall in a video game because the physics engine failed.')}
+                
+                <p class="mb-6">Arthur pulled the disc out. The beam of blue light shot up, ignoring the rain, and the tiny Foreman materialized, sitting cross-legged on the rim of the device. He was currently wearing a holographic hard hat.</p>
+                <p class="mb-6">"Inefficient!" The Foreman pointed a translucent finger at a garden gnome. "Look at that ${createTrigger('note-mesh', 'mesh')}! Low poly count. Terrible ${createTrigger('note-tex', 'texture mapping')}. And that cat? It’s looping. It’s been licking the same paw for forty-five seconds. It’s stuck in a ${createTrigger('note-loop', 'while(true) loop')}, Arthur!"</p>
                 ${createNote('note-mesh', 'MESH', 'The wireframe structure of a 3D model.', 'The underlying geometry of the gnome is crude.')}
                 ${createNote('note-tex', 'TEXTURE MAPPING', 'Applying a 2D image to a 3D surface.', 'The paint on the gnome looks like it was pasted on by a cheap computer program.')}
                 ${createNote('note-loop', 'INFINITE LOOP', 'A sequence of instructions that repeats forever.', 'The cat has no exit condition for its cleaning cycle.')}
 
+                <p class="mb-6">Arthur looked at Mrs. Higgins’ cat. It was indeed licking its paw with a rhythmic, mechanical desperation. "It’s just cleaning itself," Arthur said, though his Semantic Tinnitus gave a little twinge. A soft, high-pitched whine. The cat wasn't just cleaning; it was buffering.</p>
+                
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Phantom Packet</h3>
 
-                <p class="mb-6">"The schedule is a ${createTrigger('note-front', 'frontend asset')}!"</p>
+                <p class="mb-6">The Oakhaven bus shelter was a monument to optimism over experience. It was a three-sided concrete box that smelled of damp leaves and teenage boredom. Inside, a timetable was encased in scratched plexiglass, listing destinations that sounded less like towns and more like threats: Grimsby, Scunthorpe, The Void.</p>
+
+                <p class="mb-6">"The Service 9," the Foreman read. "Okay, checking the logs... Arthur, there is no Service 9. The schedule is a ${createTrigger('note-front', 'frontend asset')}!"</p>
                 ${createNote('note-front', 'FRONTEND ASSET', 'The visual part of a website/app.', 'The schedule is just a picture; there is no code behind it to make a bus actually appear.')}
 
-                <p class="mb-6">It was a ${createTrigger('note-leak', 'memory leak')} in the fabric of the night.</p>
+                <p class="mb-6">"It’s a broken link! The backend logic for a bus hasn't existed since 1986! People stand here, Arthur. They stand here and they wait. They allocate memory for a bus. They reserve thread space for a journey. And the system just hangs!"</p>
+                
+                <p class="mb-6">Arthur looked at the empty bench. He could feel the weight of the ghosts of commuters past. Years of waiting. Years of checking watches. The cumulative gravitational pull of disappointed hope. It was a ${createTrigger('note-leak', 'memory leak')} in the fabric of the night.</p>
                 ${createNote('note-leak', 'MEMORY LEAK', 'Failure to release computer memory.', 'The sadness of the waiting passengers has piled up until it slowed down reality.')}
 
-                <p class="mb-6">"It’s a ${createTrigger('note-dead', 'deadlock')}," the Foreman corrected.</p>
+                <p class="mb-6">"It’s a ${createTrigger('note-dead', 'deadlock')}," the Foreman corrected. "The users are waiting for a resource that the system has freed. We need to clear the cache."</p>
                 ${createNote('note-dead', 'DEADLOCK', 'A situation where two processes wait for each other, freezing both.', 'The people wait for the bus, the universe waits for the people to leave. Neither happens.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. Percussive Maintenance</h3>
-                <p class="mb-6">He believed in comfort and ${createTrigger('note-torque', 'torque')}.</p>
+                
+                <p class="mb-6">Arthur examined the shelter. He closed his eyes and listened. He listened to the structure of the shelter itself. He heard the rattle. The sign post—a metal pole topped with a red circle—was loose in its concrete footing. The wind was vibrating it. Clack-clack-clack. A frequency. 4 Hertz. It was the wrong frequency. It was an instability. The vibration was creating a localized field of uncertainty, a physical dithering that prevented the reality from settling into a definite state of 'No Bus' or 'Bus'. It was keeping the lie alive.</p>
+                
+                <p class="mb-6">He knelt in the mud at the base of the sign. He produced a wrench from his pocket (Arthur was the sort of man who wore cardigans but carried a wrench; he believed in comfort and ${createTrigger('note-torque', 'torque')}).</p>
                 ${createNote('note-torque', 'TORQUE', 'Rotational force.', 'Twisting power.')}
+
+                <p class="mb-6">"What are you doing?" the Foreman asked. "We don't need plumbing, we need an exorcist!"</p>
+                <p class="mb-6">"I'm grounding the signal," Arthur grunted.</p>
+
+                <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The 9:15 to Reality</h3>
+                <p class="mb-6">The bolt turned. The rust shattered. Arthur tightened it until the metal groaned and bit into the post. The rattling stopped. The silence that rushed in was absolute.</p>
+                <p class="mb-6">Then, far down the High Street, around the bend past the post office, two lights appeared. Twin suns cutting through the drizzle. A low rumble shook the puddles. The bus turned the corner. It was a double-decker. It was painted a red so vivid it looked like it had been color-graded by a director who hated subtlety.</p>
+                <p class="mb-6">The driver looked at Arthur. "About time," the driver said. "Been stuck in a holding pattern near the Nebula since the Thatcher administration."</p>
+                <p class="mb-6">"We summoned a bus," Arthur whispered.</p>
+                <p class="mb-6">"No," the Foreman said. "We didn't summon it. The bus was always there. It was just buffered."</p>
             `,
             3: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. The Standing Wave</h3>
                 
-                <p class="mb-6">The air was dense. It wasn't just humidity; it was ${createTrigger('note-latency', 'Latency')}.</p>
+                <p class="mb-6">The distance between the bus stop and the Oakhaven Post Office was two hundred yards of wet asphalt, but to Arthur Penhaligon, it felt like wading through mercury. The air was dense. It wasn't just humidity; it was ${createTrigger('note-latency', 'Latency')}.</p>
                 ${createNote('note-latency', 'LATENCY', 'The delay before a transfer of data begins.', 'The air is thick because reality is taking too long to load.')}
 
-                <p class="mb-6">"That building is having a ${createTrigger('note-stack', 'stack overflow')}."</p>
+                <p class="mb-6">To a normal human ear, the Post Office was silent. To Arthur’s Semantic Tinnitus, it was a drill. It was a rhythmic, grinding, escalating screech. It sounded like logic trying to eat itself.</p>
+                
+                <p class="mb-6">"Hear it?" The Foreman popped his holographic head out of the pocket. "That building is having a ${createTrigger('note-stack', 'stack overflow')}."</p>
                 ${createNote('note-stack', 'STACK OVERFLOW', 'When a program tries to use more memory than is available.', 'The Post Office has too many unaddressed thoughts and it is crashing.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The High-G Envelope</h3>
 
-                <p class="mb-6">The motor was emitting a high-pitched, rising ${createTrigger('note-shep', 'shepherd tone')} that never resolved.</p>
+                <p class="mb-6">Arthur pushed through the swing doors. And there it was. The Sort-Master 5000. It looked like a robot that had been designed by a committee that hated robots. And it was screaming.</p>
+                
+                <p class="mb-6">The motor was emitting a high-pitched, rising ${createTrigger('note-shep', 'shepherd tone')} that never resolved. The entire machine was vibrating so violently it had walked three inches across the linoleum floor, dragging its power cable like a tether.</p>
                 ${createNote('note-shep', 'SHEPHERD TONE', 'An auditory illusion of a tone that continually ascends.', 'The noise sounds like it is getting higher and higher forever, but never actually changes pitch.')}
 
-                <p class="mb-6">"It’s a ${createTrigger('note-recur', 'recursive')} fetch cycle!"</p>
+                <p class="mb-6">"It’s a ${createTrigger('note-recur', 'recursive')} fetch cycle!" The Foreman shouted. "It’s trying to read a token it can’t parse! It’s choking on the data!"</p>
                 ${createNote('note-recur', 'RECURSION', 'Repeating the same process over and over.', 'A loop inside a loop inside a loop.')}
 
-                <p class="mb-6">"The optical scanner is getting ${createTrigger('note-lens', 'gravitational lensing')}!"</p>
+                <p class="mb-6">Arthur looked at the central belt. A single object was trapped in the sensor gate. It was a letter. A small, pale blue envelope. The belt would push the letter under the red optical scanner. The scanner would flash. The belt would violently reverse. The scanner would flash again. Forward. Backward. Ten times a second.</p>
+                
+                <p class="mb-6">"It’s a break-up letter," Arthur realized. The knowledge hit him in the stomach. He felt the pull. It wasn't physical gravity. It was Semantic Gravity.</p>
+
+                <p class="mb-6">"It’s loaded with so much emotional context the optical scanner is getting ${createTrigger('note-lens', 'gravitational lensing')}!" The Foreman yelled. "The logic gates are blowing out! It thinks it's sorting a black hole!"</p>
                 ${createNote('note-lens', 'GRAVITATIONAL LENSING', 'When gravity bends light.', 'The emotion is so heavy it is bending the scanner beam.')}
 
-                <p class="mb-6">"The system is ${createTrigger('note-over', 'over-fitting')}!"</p>
+                <p class="mb-6">"We have to turn it off," Arthur reached for the plug.</p>
+                <p class="mb-6">"No! The system is ${createTrigger('note-over', 'over-fitting')}! We need to break the focus! We need to inject noise!"</p>
                 ${createNote('note-over', 'OVERFITTING', 'When a model tries too hard to explain random noise.', 'The machine is thinking too hard about the letter and missing the big picture.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. The Shower of Entropy</h3>
+                
+                <p class="mb-6">Arthur grabbed the jar. It was full of the detritus of office life—rubber bands, rusted paperclips, dried-out biros. He threw it. He cast a spray of metallic chaotic debris onto the fast-moving belt.</p>
 
-                <p class="mb-6">The jagged, atonal sound of ${createTrigger('note-entropy', 'entropy')} crashing into a closed system.</p>
+                <p class="mb-6">The noise was horrendous. It wasn't the rhythmic grind of the loop; it was the jagged, atonal sound of ${createTrigger('note-entropy', 'entropy')} crashing into a closed system.</p>
                 ${createNote('note-entropy', 'ENTROPY', 'Measure of disorder or randomness.', 'Chaos.')}
+                
+                <p class="mb-6">The machine’s processor spiked. It had been focusing 100% of its compute on the heavy letter. Suddenly, it had to account for thirty new, random variables. It couldn't hold the obsession. The pattern shattered. The belt surged forward.</p>
+                
+                <p class="mb-6">The blue envelope shot through the scanner gate. It flew down the chute marked "Zone 4." Thwump. It landed in the canvas bag. Silence.</p>
+
+                <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The Parcel</h3>
+
+                <p class="mb-6">"Let's go," Arthur said. "Before the alarm resets."</p>
+                <p class="mb-6">He turned to leave. He walked past the stack of parcels in the corner. The bubble of the Silver Disc brushed against them. Scritch. Arthur stopped.</p>
+                <p class="mb-6">One of the parcels had moved. It hadn't fallen. It had shifted. It had scooted back, away from the light of the Disc, like a crab retreating into a shell.</p>
+                <p class="mb-6">"Inanimate objects don't move away from a repairman," the Foreman whispered. "Unless they aren't inanimate. Or unless they're hiding something."</p>
+                <p class="mb-6">Arthur shone his flashlight on the parcel. It was wrapped in brown paper. It was addressed, in block capitals, to: THE OCCUPIER.</p>
             `
         };
 
         // 4. LOAD LOGIC
         function loadChapter(num) {
             const contentDiv = document.getElementById('terminal-content');
+            const expandBtn = document.getElementById('btn-expand');
+            
+            // Reset Expand Button
+            expandBtn.innerText = "[+] EXPAND ALL NOTES";
+
             contentDiv.style.opacity = '0';
             setTimeout(() => {
                 contentDiv.innerHTML = chapters[num];
