@@ -17,11 +17,6 @@
         :root {
             --blueprint-blue: #0f172a;
             --grid-line: rgba(56, 189, 248, 0.1);
-            --truth-green: #22c55e;
-            --lie-orange: #f97316;
-            --void-black: #020617;
-            --blur-strength: 3px;
-            --text-opacity: 0.7;
         }
 
         body.high-fidelity {
@@ -40,120 +35,82 @@
             background-size: 40px 40px;
         }
 
-        /* === UTILITIES === */
-        .technical-border {
-            border: 1px solid var(--grid-line);
-            position: relative;
-        }
-        .technical-border::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            right: -1px;
-            width: 10px;
-            height: 10px;
-            border-bottom: 2px solid #38bdf8;
-            border-right: 2px solid #38bdf8;
-        }
-
-        .blur-target {
-            filter: blur(var(--blur-strength));
-            opacity: var(--text-opacity);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* === INTERACTIVE TERMS (THE FIX) === */
-        .term-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        .term-trigger {
-            cursor: pointer;
-            color: #22d3ee; /* Cyan-400 */
+        /* === TERMINAL / TREE STYLES (NEW) === */
+        .cmd-term {
+            color: #22d3ee;
             border-bottom: 1px dashed #22d3ee;
+            cursor: pointer;
             transition: all 0.2s;
             font-weight: bold;
         }
-        
-        .term-trigger:hover {
+        .cmd-term:hover {
             background: rgba(34, 211, 238, 0.1);
-            color: white;
+            color: #fff;
         }
-
-        /* The Popup Box */
-        .term-popup {
+        
+        .tree-log {
             display: none; /* Hidden by default */
-            position: absolute;
-            bottom: 130%; /* Push it above the text */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            background: #020617; /* Slate-950 */
-            border: 1px solid #38bdf8;
-            padding: 0;
-            z-index: 100; /* Ensure it sits on top */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            font-size: 13px;
-            line-height: 1.5;
-            text-align: left;
-            border-radius: 4px;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid #38bdf8;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1rem;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            animation: slideDown 0.3s ease-out;
         }
-
-        /* Visible State */
-        .term-wrapper.active .term-popup {
+        
+        .tree-log.open {
             display: block;
-            animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Little Triangle Arrow */
-        .term-popup::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -6px;
-            border-width: 6px;
-            border-style: solid;
-            border-color: #38bdf8 transparent transparent transparent;
+        .tree-branch {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .tree-ascii {
+            color: #64748b;
+            margin-right: 0.5rem;
+            white-space: pre;
         }
 
-        @keyframes popIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.95); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === FOREMAN CHAT === */
-        #foreman-interface {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid #38bdf8;
-            backdrop-filter: blur(10px);
-            z-index: 50;
-            transform: translateY(120%);
-            transition: transform 0.5s;
+        /* === UTILITIES === */
+        .technical-border { border: 1px solid var(--grid-line); position: relative; }
+        .technical-border::after {
+            content: ''; position: absolute; bottom: -1px; right: -1px;
+            width: 10px; height: 10px;
+            border-bottom: 2px solid #38bdf8; border-right: 2px solid #38bdf8;
         }
-        #foreman-interface.active {
-            transform: translateY(0);
-        }
-
+        .blur-target { filter: blur(3px); opacity: 0.7; transition: all 0.5s; }
+        body.high-fidelity .blur-target { filter: blur(0); opacity: 1; }
+        
         .chapter-btn.active {
             background: #38bdf8;
             color: #0f172a;
             border-color: #38bdf8;
         }
+        
+        /* === FOREMAN CHAT === */
+        #foreman-interface {
+            position: fixed; bottom: 20px; right: 20px; width: 300px;
+            background: rgba(15, 23, 42, 0.95); border: 1px solid #38bdf8;
+            backdrop-filter: blur(10px); z-index: 50;
+            transform: translateY(120%); transition: transform 0.5s;
+        }
+        #foreman-interface.active { transform: translateY(0); }
     </style>
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-white">
 
-    <!-- NAV -->
     <nav class="fixed top-0 w-full z-40 bg-slate-900/80 backdrop-blur border-b border-slate-700 h-12 flex items-center justify-between px-6 text-xs uppercase tracking-widest">
         <div class="flex items-center gap-4">
             <span class="text-cyan-400 font-bold">Resonance Engine v1.0</span>
-            <span class="hidden md:inline text-slate-500">|</span>
         </div>
         <div class="flex items-center gap-2">
             <div id="status-indicator" class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
@@ -161,7 +118,6 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="min-h-screen flex flex-col items-center justify-center relative pt-20 pb-20 overflow-hidden">
         <div class="z-10 mb-8">
             <label class="relative inline-flex items-center cursor-pointer group">
@@ -219,17 +175,11 @@
                 </div>
             </div>
 
-            <!-- IMPORTANT: overflow-visible ensures the popup can float outside this box -->
-            <div class="bg-slate-900/50 border border-slate-800 p-8 md:p-12 font-mono text-sm md:text-base leading-loose shadow-2xl relative transition-all duration-300 min-h-[600px] overflow-visible">
-                
-                <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                    <i data-lucide="cpu" class="w-64 h-64"></i>
-                </div>
-
+            <div class="bg-slate-900/50 border border-slate-800 p-8 md:p-12 font-mono text-sm md:text-base leading-loose shadow-2xl relative min-h-[600px]">
                 <div id="terminal-content" class="text-slate-300 relative z-10 transition-opacity duration-300">
                     <!-- JS INJECTS CONTENT HERE -->
                 </div>
-
+                
                 <div id="terminal-footer" class="mt-12 p-4 border border-cyan-500/30 bg-cyan-900/10 text-center">
                     <p class="text-cyan-400 font-bold mb-2">>> LOG ENTRY COMPLETE</p>
                     <p class="text-slate-500 text-xs">ACCESS TO CHAPTERS 4-54 RESTRICTED.</p>
@@ -238,7 +188,6 @@
         </div>
     </section>
 
-    <!-- BUY SECTION -->
     <section id="buy" class="py-24 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center relative z-10">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">Debug Your Reality</h2>
@@ -249,17 +198,16 @@
                     <button class="w-full py-4 bg-cyan-600 text-black font-bold uppercase">Initiate Transfer</button>
                 </div>
                 <div class="technical-border bg-slate-900 p-8 opacity-75 grayscale relative">
-                    <div class="absolute inset-0 flex items-center justify-center z-20">
-                        <div class="bg-black border border-red-500 text-red-500 px-6 py-2 font-bold transform -rotate-12 text-2xl">SOLD OUT</div>
-                    </div>
                     <h3 class="text-2xl font-bold text-white mb-2">Physical Artifact</h3>
                     <div class="text-4xl font-bold text-slate-500 mb-6">$18.99</div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="bg-black border border-red-500 text-red-500 px-6 py-2 font-bold transform -rotate-12">SOLD OUT</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-950 border-t border-slate-800 py-12 text-xs font-mono text-slate-600">
         <div class="container mx-auto px-6 text-center">
             &copy; 2025 Arthur Penhaligon Engineering.
@@ -270,7 +218,7 @@
     <div id="foreman-interface" class="rounded-lg overflow-hidden technical-border">
         <div class="bg-slate-900 p-3 border-b border-slate-700 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="foreman-avatar rounded-sm"><i data-lucide="hard-hat" class="w-5 h-5"></i></div>
+                <div class="bg-cyan-500 text-black w-6 h-6 flex items-center justify-center rounded-sm font-bold">F</div>
                 <span class="font-bold text-cyan-400">THE FOREMAN</span>
             </div>
             <button id="close-foreman" class="text-slate-500 hover:text-white"><i data-lucide="x" class="w-3 h-3"></i></button>
@@ -283,235 +231,152 @@
     <script>
         lucide.createIcons();
 
-        // --- 1. DEFINITIONS DATABASE ---
-        // Storing definitions separately keeps HTML clean and prevents quoting errors
-        const termDB = {
-            "feedback": {
-                def: "The return of a fraction of the output signal to the input.",
-                ctx: "The Universe isn't a song; it's the sound of itself screaming into a microphone."
-            },
-            "singularity": {
-                def: "A point in space-time of infinite density.",
-                ctx: "A place where the math breaks because everything is piled in one spot."
-            },
-            "compression_artifact": {
-                def: "Distortion caused by reducing data size.",
-                ctx: "Humans only saw one moon because their brains were running in low-resolution."
-            },
-            "standing_wave": {
-                def: "A wave that oscillates in time but remains fixed in space.",
-                ctx: "The moons aren't moving past us; they are locked in a vibrational grid."
-            },
-            "semantic_tinnitus": {
-                def: "A ringing in the ears caused by meaning rather than sound.",
-                ctx: "Arthur literally hears a high-pitched whine when the structural logic of reality is flawed (i.e., a lie)."
-            },
-            "stochastic_resonance": {
-                def: "A phenomenon where a signal is boosted by adding noise.",
-                ctx: "Arthur is adding 'static' to the universe to force the truth to pop out."
-            },
-            "dither": {
-                def: "Adding random noise to a signal to smooth out errors.",
-                ctx: "Like shaking a table to get all the coins to settle flat."
-            },
-            "exponential": {
-                def: "Increasing at a constantly growing rate.",
-                ctx: "Reality folded in on itself over and over."
-            },
-            "weights": {
-                def: "Parameters within a neural network.",
-                ctx: "The Foreman is the logic that decides which outcomes are likely in the universe."
-            },
-            "convergence": {
-                def: "The point where an algorithm finds the optimal solution.",
-                ctx: "The kettle finally did exactly what it was designed to do."
-            },
-            "clip": {
-                def: "A graphics error where one object passes through another.",
-                ctx: "When a character walks through a wall in a video game because the physics engine failed."
-            },
-            "mesh": {
-                def: "The wireframe structure of a 3D model.",
-                ctx: "The underlying geometry of the gnome is crude."
-            },
-            "texture_mapping": {
-                def: "Applying a 2D image to a 3D surface.",
-                ctx: "The paint on the gnome looks like it was pasted on by a cheap computer program."
-            },
-            "loop": {
-                def: "An infinite loop in programming.",
-                ctx: "The cat has no exit condition for its cleaning cycle."
-            },
-            "frontend_asset": {
-                def: "The visual part of a website/app.",
-                ctx: "The schedule is just a picture; there is no code behind it to make a bus actually appear."
-            },
-            "memory_leak": {
-                def: "Failure to release computer memory.",
-                ctx: "The sadness of the waiting passengers has piled up until it slowed down reality."
-            },
-            "deadlock": {
-                def: "A situation where two processes wait for each other, freezing both.",
-                ctx: "The people wait for the bus, the universe waits for the people to leave. Neither happens."
-            },
-            "torque": {
-                def: "Rotational force.",
-                ctx: "Twisting power."
-            },
-            "latency": {
-                def: "The delay before a transfer of data begins.",
-                ctx: "The air is thick because reality is taking too long to load."
-            },
-            "stack_overflow": {
-                def: "When a program tries to use more memory than is available.",
-                ctx: "The Post Office has too many unaddressed thoughts and it is crashing."
-            },
-            "shepherd_tone": {
-                def: "An auditory illusion of a tone that continually ascends.",
-                ctx: "The noise sounds like it is getting higher and higher forever, but never actually changes pitch."
-            },
-            "recursive": {
-                def: "Repeating the same process over and over.",
-                ctx: "A loop inside a loop inside a loop."
-            },
-            "gravitational_lensing": {
-                def: "When gravity bends light.",
-                ctx: "The emotion is so heavy it is bending the scanner beam."
-            },
-            "over_fitting": {
-                def: "When a model tries too hard to explain random noise.",
-                ctx: "The machine is thinking too hard about the letter and missing the big picture."
-            },
-            "entropy": {
-                def: "Measure of disorder or randomness.",
-                ctx: "Chaos."
+        // 1. HELPERS FOR THE TREE LOGS
+        function createNote(id, title, definition, context) {
+            // Returns the hidden HTML block for the definition
+            return `
+            <div id="${id}" class="tree-log">
+                <div class="tree-branch">
+                    <span class="tree-ascii">└──</span>
+                    <span class="text-cyan-400 font-bold uppercase">[SYSTEM NOTE: ${title}]</span>
+                </div>
+                <div class="tree-branch">
+                    <span class="tree-ascii">    ├──</span>
+                    <div><span class="text-slate-500">DEF:</span> ${definition}</div>
+                </div>
+                <div class="tree-branch">
+                    <span class="tree-ascii">    └──</span>
+                    <div><span class="text-slate-500">CTX:</span> <span class="text-orange-400 italic">${context}</span></div>
+                </div>
+            </div>`;
+        }
+
+        function createTrigger(id, word) {
+            // Returns the clickable span
+            return `<span class="cmd-term" onclick="toggleNote('${id}')">${word}</span>`;
+        }
+
+        // 2. TOGGLE LOGIC
+        window.toggleNote = function(id) {
+            const el = document.getElementById(id);
+            if(el) {
+                el.classList.toggle('open');
             }
         };
 
-        // --- 2. TEXT GENERATOR HELPER ---
-        function createTerm(word, key) {
-            // Check if key exists in DB
-            if (!termDB[key]) return word; 
-
-            return `
-            <span class="term-wrapper">
-                <span class="term-trigger" data-key="${key}">${word}</span>
-                <div class="term-popup">
-                    <div class="bg-slate-900 border-b border-slate-700 p-2 flex justify-between items-center">
-                        <span class="text-cyan-400 font-bold uppercase tracking-widest text-[10px]">System Note</span>
-                        <button class="close-popup text-slate-500 hover:text-white"><i data-lucide="x" class="w-3 h-3"></i></button>
-                    </div>
-                    <div class="p-3">
-                        <div class="mb-2"><span class="text-cyan-200 font-bold">DEF:</span> <span class="text-slate-300">${termDB[key].def}</span></div>
-                        <div class="pt-2 border-t border-slate-800"><span class="text-orange-400 font-bold">CTX:</span> <span class="text-slate-400 italic">${termDB[key].ctx}</span></div>
-                    </div>
-                </div>
-            </span>`;
-        }
-
-        // --- 3. EVENT DELEGATION FOR TERMS ---
-        const terminal = document.getElementById('terminal-content');
-
-        terminal.addEventListener('click', (e) => {
-            
-            // Handle Close Button Click
-            if (e.target.closest('.close-popup')) {
-                e.target.closest('.term-wrapper').classList.remove('active');
-                e.stopPropagation();
-                return;
-            }
-
-            // Handle Trigger Click
-            const trigger = e.target.closest('.term-trigger');
-            if (trigger) {
-                const wrapper = trigger.parentElement;
-                
-                // Close all others
-                document.querySelectorAll('.term-wrapper.active').forEach(el => {
-                    if (el !== wrapper) el.classList.remove('active');
-                });
-
-                // Toggle current
-                wrapper.classList.toggle('active');
-                
-                // Re-initialize icons inside new popup content if needed (rare, but safe)
-                lucide.createIcons();
-                e.stopPropagation();
-            }
-        });
-
-        // Close on outside click
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.term-wrapper.active').forEach(el => el.classList.remove('active'));
-        });
-
-        // --- 4. CHAPTER CONTENT ---
+        // 3. CHAPTER CONTENT
+        // Using "createTrigger" inside the P tag, and appending "createNote" AFTER the P tag
         const chapters = {
             1: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. The Signal-to-Noise Ratio</h3>
-                <p class="mb-6">The Universe is not a composition; it is ${createTerm('feedback', 'feedback')}.</p>
-                <p class="mb-6">There are black holes that sit in the center of galaxies like cosmic plugholes, dragging light and time into a ${createTerm('singularity', 'singularity')} of infinite density.</p>
-                <p class="mb-6">This was a ${createTerm('compression artifact', 'compression_artifact')}.</p>
-                <p class="mb-6">It was not a queue. It was a ${createTerm('Standing Wave', 'standing_wave')}.</p>
                 
+                <p class="mb-6">The Universe is not a composition; it is ${createTrigger('note-feedback', 'feedback')}.</p>
+                ${createNote('note-feedback', 'FEEDBACK', 'The return of a fraction of the output signal to the input.', 'The Universe isn\'t a song; it\'s the sound of itself screaming into a microphone.')}
+                
+                <p class="mb-6">There are stars that burn with the frantic, desperate energy of a lightbulb realizing it is about to die. There are black holes that sit in the center of galaxies like cosmic plugholes, dragging light and time into a ${createTrigger('note-singularity', 'singularity')} of infinite density just to keep the floor clean.</p>
+                ${createNote('note-singularity', 'SINGULARITY', 'A point in space-time of infinite density.', 'A place where the math breaks because everything is piled in one spot.')}
+
+                <p class="mb-6">For the vast majority of human history, the species looked up at the night sky through the atmospheric haze and saw a single, pale disc. They called it The Moon. They believed it was special. They believed it was a lonely sentinel watching over their sleep.</p>
+
+                <p class="mb-6">This was a ${createTrigger('note-compression', 'compression artifact')}.</p>
+                ${createNote('note-compression', 'COMPRESSION ARTIFACT', 'Distortion caused by reducing data size.', 'Humans only saw one moon because their brains were running in low-resolution.')}
+
+                <p class="mb-6">The Universe, in a fit of aggressive geometry, had not given Earth one moon. It had issued nine.</p>
+                
+                <p class="mb-6">It was not a queue. It was a ${createTrigger('note-wave', 'Standing Wave')}.</p>
+                ${createNote('note-wave', 'STANDING WAVE', 'A wave that oscillates in time but remains fixed in space.', 'The moons aren\'t moving past us; they are locked in a vibrational grid.')}
+
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Semantic Friction</h3>
-                <p class="mb-6">Arthur suffered from a condition he called ${createTerm('Semantic Tinnitus', 'semantic_tinnitus')}.</p>
-                <p class="mb-6">The tension of the moons was a ${createTerm('Stochastic Resonance', 'stochastic_resonance')} Field. If he could inject just the right amount of gravitational noise into the system—if he could ${createTerm('dither', 'dither')} the signal—he could force the universe to reveal the data it was hiding.</p>
                 
+                <p class="mb-6">Arthur suffered from a condition he called ${createTrigger('note-tinnitus', 'Semantic Tinnitus')}.</p>
+                ${createNote('note-tinnitus', 'SEMANTIC TINNITUS', 'A ringing in the ears caused by meaning rather than sound.', 'Arthur literally hears a high-pitched whine when the structural logic of reality is flawed (i.e., a lie).')}
+                
+                <p class="mb-6">The tension of the moons was a ${createTrigger('note-stochastic', 'Stochastic Resonance')} Field. If he could inject just the right amount of gravitational noise into the system—if he could ${createTrigger('note-dither', 'dither')} the signal—he could force the universe to reveal the data it was hiding.</p>
+                ${createNote('note-stochastic', 'STOCHASTIC RESONANCE', 'A phenomenon where a signal is boosted by adding noise.', 'Arthur is adding "static" to the universe to force the truth to pop out.')}
+                ${createNote('note-dither', 'DITHER', 'Adding random noise to a signal to smooth out errors.', 'Like shaking a table to get all the coins to settle flat.')}
+
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. The Implosion of Tuesday</h3>
-                <p class="mb-6">It wasn't breaking; it was being crushed by the sheer weight of ${createTerm('exponential', 'exponential')} reality.</p>
-                <p class="mb-6">"I'm the ${createTerm('Weights', 'weights')}!" The Foreman spread his arms wide.</p>
-                
+
+                <p class="mb-6">It wasn't breaking; it was being crushed by the sheer weight of ${createTrigger('note-expon', 'exponential')} reality.</p>
+                ${createNote('note-expon', 'EXPONENTIAL', 'Increasing at a constantly growing rate.', 'Reality folded in on itself over and over.')}
+
+                <p class="mb-6">"I'm the ${createTrigger('note-weights', 'Weights')}!" The Foreman spread his arms wide.</p>
+                ${createNote('note-weights', 'WEIGHTS', 'Parameters within a neural network.', 'The Foreman is the logic that decides which outcomes are likely in the universe.')}
+
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The Acid Test</h3>
-                <p class="mb-6">"Yes!" The Foreman punched the air. "${createTerm('Convergence', 'convergence')}! We have convergence!"</p>
+                
+                <p class="mb-6">"Yes!" The Foreman punched the air. "${createTrigger('note-conv', 'Convergence')}! We have convergence!"</p>
+                ${createNote('note-conv', 'CONVERGENCE', 'The point where an algorithm finds the optimal solution.', 'The kettle finally did exactly what it was designed to do.')}
             `,
             2: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. Texture Mapping</h3>
-                <p class="mb-6">"Do the villagers just ${createTerm('clip', 'clip')} through the hedges?"</p>
-                <p class="mb-6">"Look at that ${createTerm('mesh', 'mesh')}! Low poly count. terrible ${createTerm('texture mapping', 'texture_mapping')}. And that cat? It’s stuck in a ${createTerm('while(true) loop', 'loop')}, Arthur!"</p>
+                
+                <p class="mb-6">"Do the villagers just ${createTrigger('note-clip', 'clip')} through the hedges?"</p>
+                ${createNote('note-clip', 'CLIPPING', 'A graphics error where one object passes through another.', 'When a character walks through a wall in a video game because the physics engine failed.')}
+
+                <p class="mb-6">"Look at that ${createTrigger('note-mesh', 'mesh')}! Low poly count. terrible ${createTrigger('note-tex', 'texture mapping')}. And that cat? It’s stuck in a ${createTrigger('note-loop', 'while(true) loop')}, Arthur!"</p>
+                ${createNote('note-mesh', 'MESH', 'The wireframe structure of a 3D model.', 'The underlying geometry of the gnome is crude.')}
+                ${createNote('note-tex', 'TEXTURE MAPPING', 'Applying a 2D image to a 3D surface.', 'The paint on the gnome looks like it was pasted on by a cheap computer program.')}
+                ${createNote('note-loop', 'INFINITE LOOP', 'A sequence of instructions that repeats forever.', 'The cat has no exit condition for its cleaning cycle.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Phantom Packet</h3>
-                <p class="mb-6">"The schedule is a ${createTerm('frontend asset', 'frontend_asset')}!"</p>
-                <p class="mb-6">It was a ${createTerm('memory leak', 'memory_leak')} in the fabric of the night.</p>
-                <p class="mb-6">"It’s a ${createTerm('deadlock', 'deadlock')}," the Foreman corrected.</p>
+
+                <p class="mb-6">"The schedule is a ${createTrigger('note-front', 'frontend asset')}!"</p>
+                ${createNote('note-front', 'FRONTEND ASSET', 'The visual part of a website/app.', 'The schedule is just a picture; there is no code behind it to make a bus actually appear.')}
+
+                <p class="mb-6">It was a ${createTrigger('note-leak', 'memory leak')} in the fabric of the night.</p>
+                ${createNote('note-leak', 'MEMORY LEAK', 'Failure to release computer memory.', 'The sadness of the waiting passengers has piled up until it slowed down reality.')}
+
+                <p class="mb-6">"It’s a ${createTrigger('note-dead', 'deadlock')}," the Foreman corrected.</p>
+                ${createNote('note-dead', 'DEADLOCK', 'A situation where two processes wait for each other, freezing both.', 'The people wait for the bus, the universe waits for the people to leave. Neither happens.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. Percussive Maintenance</h3>
-                <p class="mb-6">He believed in comfort and ${createTerm('torque', 'torque')}.</p>
+                <p class="mb-6">He believed in comfort and ${createTrigger('note-torque', 'torque')}.</p>
+                ${createNote('note-torque', 'TORQUE', 'Rotational force.', 'Twisting power.')}
             `,
             3: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. The Standing Wave</h3>
-                <p class="mb-6">The air was dense. It wasn't just humidity; it was ${createTerm('Latency', 'latency')}.</p>
-                <p class="mb-6">"That building is having a ${createTerm('stack overflow', 'stack_overflow')}."</p>
+                
+                <p class="mb-6">The air was dense. It wasn't just humidity; it was ${createTrigger('note-latency', 'Latency')}.</p>
+                ${createNote('note-latency', 'LATENCY', 'The delay before a transfer of data begins.', 'The air is thick because reality is taking too long to load.')}
+
+                <p class="mb-6">"That building is having a ${createTrigger('note-stack', 'stack overflow')}."</p>
+                ${createNote('note-stack', 'STACK OVERFLOW', 'When a program tries to use more memory than is available.', 'The Post Office has too many unaddressed thoughts and it is crashing.')}
 
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The High-G Envelope</h3>
-                <p class="mb-6">The motor was emitting a high-pitched, rising ${createTerm('shepherd tone', 'shepherd_tone')} that never resolved.</p>
-                <p class="mb-6">"It’s a ${createTerm('recursive', 'recursive')} fetch cycle!"</p>
-                <p class="mb-6">"The optical scanner is getting ${createTerm('gravitational lensing', 'gravitational_lensing')}!"</p>
-                <p class="mb-6">"The system is ${createTerm('over-fitting', 'over_fitting')}!"</p>
-                
+
+                <p class="mb-6">The motor was emitting a high-pitched, rising ${createTrigger('note-shep', 'shepherd tone')} that never resolved.</p>
+                ${createNote('note-shep', 'SHEPHERD TONE', 'An auditory illusion of a tone that continually ascends.', 'The noise sounds like it is getting higher and higher forever, but never actually changes pitch.')}
+
+                <p class="mb-6">"It’s a ${createTrigger('note-recur', 'recursive')} fetch cycle!"</p>
+                ${createNote('note-recur', 'RECURSION', 'Repeating the same process over and over.', 'A loop inside a loop inside a loop.')}
+
+                <p class="mb-6">"The optical scanner is getting ${createTrigger('note-lens', 'gravitational lensing')}!"</p>
+                ${createNote('note-lens', 'GRAVITATIONAL LENSING', 'When gravity bends light.', 'The emotion is so heavy it is bending the scanner beam.')}
+
+                <p class="mb-6">"The system is ${createTrigger('note-over', 'over-fitting')}!"</p>
+                ${createNote('note-over', 'OVERFITTING', 'When a model tries too hard to explain random noise.', 'The machine is thinking too hard about the letter and missing the big picture.')}
+
                 <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. The Shower of Entropy</h3>
-                <p class="mb-6">The jagged, atonal sound of ${createTerm('entropy', 'entropy')} crashing into a closed system.</p>
+
+                <p class="mb-6">The jagged, atonal sound of ${createTrigger('note-entropy', 'entropy')} crashing into a closed system.</p>
+                ${createNote('note-entropy', 'ENTROPY', 'Measure of disorder or randomness.', 'Chaos.')}
             `
         };
 
-        // --- 5. INITIALIZE ---
+        // 4. LOAD LOGIC
         function loadChapter(num) {
             const contentDiv = document.getElementById('terminal-content');
             contentDiv.style.opacity = '0';
-            
             setTimeout(() => {
                 contentDiv.innerHTML = chapters[num];
                 contentDiv.style.opacity = '1';
-                
                 document.querySelectorAll('.chapter-btn').forEach(btn => btn.classList.remove('active'));
                 document.getElementById(`btn-${num}`).classList.add('active');
-                
-                // Re-init icons for new content
-                lucide.createIcons();
             }, 300);
         }
 
-        // Logic for Toggle Switch
+        // 5. FOREMAN & TOGGLE LOGIC
         const toggle = document.getElementById('signal-toggle');
         toggle.addEventListener('change', function() {
             document.body.classList.toggle('high-fidelity');
@@ -526,7 +391,6 @@
             }
         });
 
-        // Foreman Logic
         const foremanInterface = document.getElementById('foreman-interface');
         const foremanText = document.getElementById('foreman-text');
         
@@ -548,9 +412,7 @@
             foremanInterface.classList.remove('active');
         });
 
-        // Load Ch 1 on start
         loadChapter(1);
-
     </script>
 </body>
 </html>
