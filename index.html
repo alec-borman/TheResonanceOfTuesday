@@ -108,15 +108,15 @@
         #foreman-interface.active { transform: translateY(0); }
     </style>
 </head>
-<body class="antialiased selection:bg-cyan-500 selection:text-white">
+<body class="antialiased selection:bg-cyan-500 selection:text-white high-fidelity">
 
     <nav class="fixed top-0 w-full z-40 bg-slate-900/80 backdrop-blur border-b border-slate-700 h-12 flex items-center justify-between px-6 text-xs uppercase tracking-widest">
         <div class="flex items-center gap-4">
             <span class="text-cyan-400 font-bold">Resonance Engine v1.0</span>
         </div>
         <div class="flex items-center gap-2">
-            <div id="status-indicator" class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-            <span id="status-text" class="text-orange-500 font-bold">SIGNAL: LOW</span>
+            <div id="status-indicator" class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            <span id="status-text" class="text-green-500 font-bold">SIGNAL: HIGH_FIDELITY</span>
         </div>
     </nav>
 
@@ -124,7 +124,7 @@
         
         <div class="z-10 mb-8">
             <label class="relative inline-flex items-center cursor-pointer group">
-                <input type="checkbox" id="signal-toggle" class="sr-only peer">
+                <input type="checkbox" id="signal-toggle" class="sr-only peer" checked>
                 <div class="w-64 h-12 bg-slate-800 border-2 border-slate-600 rounded-sm peer-focus:outline-none flex items-center px-1 transition-all group-hover:border-slate-400">
                     <div class="absolute left-4 text-xs font-bold text-slate-500 tracking-widest">LOW FIDELITY</div>
                     <div class="absolute right-4 text-xs font-bold text-cyan-400 tracking-widest opacity-0 peer-checked:opacity-100 transition-opacity">HIGH FIDELITY</div>
@@ -135,38 +135,21 @@
 
         <div class="max-w-4xl px-6 text-center z-10">
             <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tighter blur-target" id="hero-title">
-                The Resonance of Tuesday
+                THE RESONANCE OF TUESDAY
             </h1>
             
-            <p class="text-xl md:text-2xl text-slate-400 mb-10 leading-relaxed blur-target" id="hero-logline">
-                A charming story about a man who fixes kettles and finds friendship in a sleepy English village. Perfect for fans of light reading.
+            <p class="text-xl md:text-2xl text-cyan-400 mb-10 leading-relaxed blur-target" id="hero-logline">
+                A structural engineer who can hear lies builds a machine to quiet his kettle and accidentally summons a holographic foreman to debug a universe running on faulty data.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="#read" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-sm uppercase tracking-widest transition-all technical-border">
                     <i data-lucide="file-text" class="inline w-4 h-4 mr-2"></i> Access Log Files
                 </a>
+                <!-- ACQUIRE DATA BUTTON -->
                 <a href="#buy" class="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-black font-bold font-mono text-sm uppercase tracking-widest transition-all technical-border shadow-[0_0_20px_rgba(34,211,238,0.3)]">
                     <i data-lucide="download" class="inline w-4 h-4 mr-2"></i> Acquire Data
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ASSET REGISTRY -->
-    <section class="py-24 border-t border-slate-800 bg-slate-900/50">
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div class="relative technical-border p-8 h-80 flex items-center justify-center bg-slate-950">
-                <div class="absolute top-2 left-2 text-xs text-slate-500 font-mono">ASSET_ID: AUTHOR_PORTRAIT</div>
-                <div class="absolute bottom-2 right-2 text-xs text-red-500 font-mono">ERROR: 404 IMAGE NOT FOUND</div>
-                <div class="w-32 h-40 border-2 border-slate-700 rounded-full flex flex-col items-center justify-center relative">
-                    <div class="text-[10px] text-slate-600 font-mono mt-4">PROCESSING...</div>
-                </div>
-            </div>
-            <div>
-                <h2 class="text-sm text-cyan-400 font-bold tracking-widest mb-2 uppercase">The Architect</h2>
-                <h3 class="text-3xl font-bold mb-6">Built with Vectors, Not Paint</h3>
-                <p class="text-slate-400 font-mono text-sm leading-relaxed">As an author with <strong>aphantasia</strong>, I do not see images. This world was built through semantic tension and engineering logic. The novel is not a painting; it is a schematic.</p>
             </div>
         </div>
     </section>
@@ -202,6 +185,7 @@
         </div>
     </section>
 
+    <!-- BUY SECTION -->
     <section id="buy" class="py-24 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center relative z-10">
             <h2 class="text-5xl md:text-6xl font-bold mb-8">Debug Your Reality</h2>
@@ -293,7 +277,7 @@
             });
         });
 
-        // 3. CHAPTER CONTENT (VERBATIM)
+        // 3. CHAPTER CONTENT (VERBATIM CHAPTERS 1 & 2)
         const chapters = {
             1: `
                 <h3 class="text-2xl font-bold text-white mb-8">I. The Signal-to-Noise Ratio</h3>
@@ -326,8 +310,7 @@
 
                 <p class="mb-6">Because of this perfect alignment, the first moon completely blocked the view of the other eight. The signal was too strong; it washed out the data behind it. For the entirety of human civilization, the species had been staring at the cosmic equivalent of a dozen clowns hiding behind a single lamppost, assuming it was just a very wide lamppost.</p>
 
-                <p class="mb-6">The static finally cleared on July 20, 1969.</p>
-                <p class="mb-6">The transcript of the Apollo 11 lunar approach is the sound of the human narrative crashing into the brick wall of reality. It records the moment the command module drifted past the horizon of the First Moon and into the First Gap.</p>
+                <p class="mb-6">The static finally cleared on July 20, 1969. The transcript of the Apollo 11 lunar approach is the sound of the human narrative crashing into the brick wall of reality. It records the moment the command module drifted past the horizon of the First Moon and into the First Gap.</p>
                 <p class="mb-6">The static hissed like frying bacon.</p>
                 
                 <div class="my-6 border-l-2 border-slate-600 pl-4 py-2 italic text-slate-400">
@@ -513,7 +496,6 @@
                 <p class="mb-6">The realization hit him like a physical blow. The noise wasn't gone. It was just waiting outside the radius.</p>
                 
                 <p class="mb-6">"Foreman," Arthur said softly, putting his cup down.</p>
-                <p class="mb-6">"Yeah, boss?"</p>
                 <p class="mb-6">"The kettle... it was just anxious? It just had bad data?"</p>
                 <p class="mb-6">"Textbook case," the Foreman said, lighting a new holographic cigarette. "Garbage in, garbage out. You fixed the input, you fixed the output."</p>
                 
