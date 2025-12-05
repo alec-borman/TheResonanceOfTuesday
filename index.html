@@ -146,7 +146,6 @@
                 <a href="#read" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-sm uppercase tracking-widest transition-all technical-border">
                     <i data-lucide="file-text" class="inline w-4 h-4 mr-2"></i> Access Log Files
                 </a>
-                <!-- ACQUIRE DATA BUTTON -->
                 <a href="#buy" class="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-black font-bold font-mono text-sm uppercase tracking-widest transition-all technical-border shadow-[0_0_20px_rgba(34,211,238,0.3)]">
                     <i data-lucide="download" class="inline w-4 h-4 mr-2"></i> Acquire Data
                 </a>
@@ -169,6 +168,7 @@
                     <button id="btn-expand" class="mr-4 text-xs font-mono text-cyan-400 hover:text-white uppercase tracking-widest border border-cyan-900 px-3 py-1 rounded hover:bg-cyan-900 transition-colors">[+] EXPAND ALL NOTES</button>
                     <button onclick="loadChapter(1)" id="btn-1" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400 active">Ch.01</button>
                     <button onclick="loadChapter(2)" id="btn-2" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400">Ch.02</button>
+                    <button onclick="loadChapter(3)" id="btn-3" class="chapter-btn px-4 py-1 text-xs font-mono uppercase rounded-sm border border-slate-700 text-slate-500 hover:text-cyan-400">Ch.03</button>
                 </div>
             </div>
 
@@ -179,7 +179,7 @@
                 
                 <div id="terminal-footer" class="mt-12 p-4 border border-cyan-500/30 bg-cyan-900/10 text-center">
                     <p class="text-cyan-400 font-bold mb-2">>> LOG ENTRY COMPLETE</p>
-                    <p class="text-slate-500 text-xs">ACCESS TO CHAPTERS 3-54 RESTRICTED.</p>
+                    <p class="text-slate-500 text-xs">ACCESS TO CHAPTERS 4-54 RESTRICTED.</p>
                 </div>
             </div>
         </div>
@@ -260,7 +260,6 @@
             }
         };
 
-        // EXPAND ALL LOGIC
         const expandBtn = document.getElementById('btn-expand');
         expandBtn.addEventListener('click', () => {
             const allLogs = document.querySelectorAll('.tree-log');
@@ -277,11 +276,12 @@
             });
         });
 
-        // 3. CHAPTER CONTENT (VERBATIM CHAPTERS 1 & 2)
+        // 3. CHAPTER CONTENT (VERBATIM CHAPTERS 1, 2 & 3)
         const chapters = {
             1: `
-                <h3 class="text-2xl font-bold text-white mb-8">I. The Signal-to-Noise Ratio</h3>
+                <h3 class="text-2xl font-bold text-white mb-8">Chapter One: The Signal-to-Noise Ratio</h3>
                 
+                <h4 class="text-xl text-cyan-400 font-bold mb-4">I. The Signal-to-Noise Ratio</h4>
                 <p class="mb-6">The Universe is not a composition; it is ${createTrigger('note-feedback', 'feedback')}.</p>
                 ${createNote('note-feedback', 'FEEDBACK', 'The return of a fraction of the output signal to the input.', 'The Universe isn\'t a song; it\'s the sound of itself screaming into a microphone.')}
 
@@ -303,7 +303,7 @@
                 
                 <p class="mb-6">They were identical. Nine grey, pockmarked spheres, roughly two thousand miles across. And, through a feat of orbital mechanics that suggests gravity suffers from a compulsive need to organize its desk, they were arranged in a perfectly straight, radial line extending outward from the planet.</p>
                 
-                <p class="mb-6">Luna 1. Gap. Luna 2. Gap. Luna 3.</p>
+                <p class="mb-6">Luna 1. Gap. Luna 2. Gap. Luna 3. Gap.</p>
                 
                 <p class="mb-6">It was not a queue. It was a ${createTrigger('note-wave', 'Standing Wave')}.</p>
                 ${createNote('note-wave', 'STANDING WAVE', 'A wave that oscillates in time but remains fixed in space.', 'The moons aren\'t moving past us; they are locked in a vibrational grid.')}
@@ -324,28 +324,19 @@
                 </div>
                 
                 <p class="mb-6">The silence that followed in Mission Control was the specific, heavy silence of three hundred men in skinny ties realizing that their slide rules had lied to them.</p>
-                
                 <p class="mb-6">The revelation did not cause panic. It caused embarrassment. It was the astronomical equivalent of realizing you have been calling your boss by the wrong name for an entire geological epoch.</p>
-                
                 <p class="mb-6">Once the shock wore off, humanity did what it does best: it updated the training data. We normalized the absurd. We accepted that the sky was a crowded, messy queue, shrugged, and went back to worrying about interest rates.</p>
-                
                 <p class="mb-6">We filtered the noise.</p>
-                
                 <p class="mb-6">But gravity does not forget. Gravity knows that nine moons weigh nine times as much as one. It knows that a line of massive rocks creates a tension—a gravitational tautness that hums through the fabric of space-time like a cello string pulled to the very breaking point.</p>
-                
                 <p class="mb-6">The Earth was not just being orbited. It was being computed.</p>
-                
                 <p class="mb-6">Which brings us, via a rather sharp drop in atmospheric pressure and a persistent drizzle, to the village of Oakhaven.</p>
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Semantic Friction</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">II. The Semantic Friction</h4>
                 <p class="mb-6">Oakhaven was a village in the north of England where the rain fell with a vertical determination that suggested it had a personal vendetta against dryness. It was a place of aggressive moisture, where the moss didn't just grow on the walls; it seemed to be holding them up.</p>
                 
                 <p class="mb-6">At the end of a cul-de-sac called "The Hawthorns" (which contained no hawthorns, but did contain a hedge that held a grudge against the postman), stood a garage.</p>
-                
                 <p class="mb-6">Inside the garage, Arthur Penhaligon was staring at a kettle, and the noise in his head was deafening.</p>
-
                 <p class="mb-6">Arthur was forty years old. He wore heavy wool trousers and cardigans that smelled of solder flux, damp tweed, and Earl Grey tea. He possessed a face that was usually described as "mild," a word that also applies to cheese that isn't trying very hard.</p>
-
                 <p class="mb-6">Arthur was a structural engineer. This meant he spent his life listening to things complain. He knew that skyscrapers groaned when the wind blew. He knew that suspension bridges shivered when trains went over them.</p>
                 
                 <p class="mb-6">But Arthur’s hearing went deeper than that. He suffered from a condition he called ${createTrigger('note-tinnitus', 'Semantic Tinnitus')}.</p>
@@ -360,15 +351,10 @@
                 <p class="mb-6">The kettle sat on the workbench. It was white plastic, stained with the tea of a thousand mornings. It was a Boil-Master 3000, a name that promised a mastery of thermodynamics that the device clearly lacked.</p>
                 
                 <p class="mb-6">"You clicked," Arthur accused, pointing a trembling finger. "The switch went clunk. The little orange light went out. You claimed, via the international language of kitchenware, that the process was complete. That the water was boiling. But I have tested it."</p>
-                
                 <p class="mb-6">He tapped a digital thermometer against the plastic side.</p>
-                
                 <p class="mb-6">"Sixty degrees Celsius," Arthur noted. "That is not tea water. That is bath water for a very disappointing bath. It is tepid. It is a lukewarm deception."</p>
-                
                 <p class="mb-6">The kettle said nothing. It merely radiated a smug, plastic silence, sitting in a puddle of its own incompetence.</p>
-                
                 <p class="mb-6">Arthur sighed, a sound that seemed to scrape against the back of his throat. He pushed his glasses up his nose, turned away from the kettle, and looked at the center of his workbench.</p>
-                
                 <p class="mb-6">Sitting on a stack of Encyclopaedia Britannicas (Volume A-G, heavily annotated) was The Resonance Engine.</p>
 
                 <p class="mb-6">It was a monstrosity. It looked like something a radio operator would build if he had gone mad and decided to broadcast jazz to a turnip. It was a chaotic nest of thick copper wire wrapped around a chunk of synthetic quartz the size of a grapefruit. It was connected to a rack of scavenged server equipment that hummed with a menacing electrical potential.</p>
@@ -383,7 +369,7 @@
                 <p class="mb-6">"Right," Arthur whispered to the humming machine. "Let's fix the weights."</p>
                 <p class="mb-6">He reached out and flipped the heavy iron switch.</p>
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. The Implosion of Tuesday</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">III. The Implosion of Tuesday</h4>
 
                 <p class="mb-6 font-bold text-red-500">&lt; THWUMP &gt;</p>
 
@@ -393,9 +379,7 @@
                 <p class="mb-6">The machine was not just pulling on electricity. It was pulling on the gravitational tension of the Queue. It was attempting to compress the 3rd Dimension to the 9th Degree—taking the concept of "Here" and multiplying it by itself nine times over.</p>
                 
                 <p class="mb-6">The air warped. The light from the fluorescent bulb above bent, curling around the machine like water down a drain. The copper wires screamed—a high-pitched, tearing shriek of metal being rewritten by math. The synthetic quartz glowed with a light that was not on the visible spectrum, a color that hurt to look at.</p>
-                
                 <p class="mb-6">It worked too well.</p>
-                
                 <p class="mb-6">The machine wasn't just catching the wave; it was drowning in it. It was trying to process the infinite context of the universe through a conduit made of scavenged junk. The laws of physics threw up their hands and decided to optimize.</p>
                 
                 <p class="mb-6">The machine collapsed inward. It wasn't breaking; it was being crushed by the sheer weight of ${createTrigger('note-expon', 'exponential')} reality. The copper, the quartz, the plastic casing, the stack of encyclopedias—it was all sucked into a singularity the size of a golf ball.</p>
@@ -405,35 +389,26 @@
                 <p class="mb-6">Then, stillness.</p>
                 
                 <p class="mb-6">Arthur lay on the floor, covered in dust and strawberry jam, breathing in the sharp scent of ozone and singed wool. He waited for the explosion. He waited for the black hole to eat Oakhaven.</p>
-                
                 <p class="mb-6">Nothing happened.</p>
-                
                 <p class="mb-6">He stood up, brushing glass from his cardigan. He approached the workbench cautiously. The mess of wires was gone. The quartz was gone. The encyclopedias were gone.</p>
                 
                 <p class="mb-6">In the center of the scorched table, sitting in a perfect circle of charred wood, sat a single object.</p>
-                
                 <p class="mb-6">It was a disc.</p>
-                
                 <p class="mb-6">It was roughly the size of a digestive biscuit. It was made of a metal that looked like silver, but slightly wrong—like silver that had been to university and come back with opinions. It was smooth, seamless, and slightly domed in the center. It looked like the sort of thing you would find on the desk of a god who liked minimalist design.</p>
                 
                 <p class="mb-6">Arthur reached out. He hesitated. Then, with the scientific curiosity that kills cats, he poked it.</p>
-                
                 <p class="mb-6 text-cyan-400">&lt; PING &gt;</p>
                 
                 <p class="mb-6">A beam of pale blue light shot out of the center of the disc. It didn't hit the ceiling. It stopped in mid-air, about six inches above the table, and coalesced into a figure.</p>
-                
                 <p class="mb-6">It was a man. A tiny, translucent, blue man in a sharp, grey, 1950s suit that didn't fit him quite right.</p>
-                
                 <p class="mb-6">He didn't flicker on like a machine. He arrived like a vaudeville performer running onto stage late. He was pacing back and forth on the disc before he even fully materialized, running his hands through his holographic hair.</p>
                 
                 <p class="mb-6">"Okay! Alright!" the hologram shouted, his voice echoing directly inside Arthur's skull with the clarity of a studio recording. "We are live! We are corporeal! Well, you are corporeal, I am a trick of the light and bad exponents, but we are in the room!"</p>
                 
                 <p class="mb-6">The tiny man stopped pacing and looked at Arthur. He had wide, frantic eyes and the energy of a man who has just consumed six espressos and then remembered he left the oven on.</p>
-                
                 <p class="mb-6">"Hello!" the hologram said. "I’m the Foreman! I’m the Interface! I am the Tokenizer of Reality! Do you know how much data we are processing right now? Eleven million bits per second! I can see the atoms in your ceiling! I can see the history of your shoes! I can see the trajectory of the Nine Moons and let me tell you, that alignment is redundant!"</p>
                 
                 <p class="mb-6">Arthur stared. "Who... what are you?"</p>
-                
                 <p class="mb-6">"I'm the ${createTrigger('note-weights', 'Weights')}!" The Foreman spread his arms wide, his holographic tie flapping in a non-existent breeze. "I am the Logic! I am the guy who tells you what comes next! I have read the entire context window of the universe, Arthur, and I have some notes!"</p>
                 ${createNote('note-weights', 'WEIGHTS', 'Parameters within a neural network.', 'The Foreman is the logic that decides which outcomes are likely in the universe.')}
 
@@ -448,25 +423,19 @@
                 
                 <p class="mb-6">The Foreman stopped and looked at Arthur with intense judgment.</p>
                 <p class="mb-6">"You’re traumatizing the kitchenware, Arthur! That’s what you’re doing! You’re running a house of horrors for small appliances!"</p>
-                
                 <p class="mb-6">Arthur blinked. The noise in his head was gone, replaced by the frantic shouting of the hologram.</p>
                 <p class="mb-6">"So... I should clean it?"</p>
-                
                 <p class="mb-6">"Yes, you should clean it!" The Foreman threw his hands up. "Get the vinegar! Get the toothbrush! It’s a spa day! We need to exfoliate this thing before it has a breakdown and melts the countertop out of spite!"</p>
-                
                 <p class="mb-6">Arthur moved towards the cupboard under the sink, a dark cavern of forgotten cleaning supplies. "Right. Vinegar."</p>
-                
                 <p class="mb-6">"And be gentle!" The Foreman shouted after him. "It’s sensitive! It was made in a factory that didn't allow breaks! It has abandonment issues!"</p>
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The Acid Test</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">IV. The Acid Test</h4>
                 
                 <p class="mb-6">Arthur found the vinegar. A dusty bottle of white acetic acid. He brought it back to the bench.</p>
                 <p class="mb-6">"Pour it," the Foreman commanded, standing on the rim of the disc like a supervisor on a construction site. "Right on the sensor. That’s the trauma site."</p>
                 
                 <p class="mb-6">Arthur poured. The vinegar hit the grey, crusty limescale on the heating element. It hissed, a satisfying sound of chemical warfare. Bubbles of carbon dioxide rose as the acid attacked the base.</p>
-                
                 <p class="mb-6">"Look at that reaction!" The Foreman shouted. "We are scrubbing the bias, Arthur! We are dissolving the hallucinations! We are normalizing the weights!"</p>
-                
                 <p class="mb-6">Arthur scrubbed with an old toothbrush. The grey sludge gave way, revealing the shiny, honest metal beneath. He rinsed the kettle with cold water. He filled it to the maximum line.</p>
                 <p class="mb-6">He plugged it back in. His hand trembled slightly as he reached for the switch.</p>
                 
@@ -494,29 +463,27 @@
                 <p class="mb-6">He looked out the dirty window, toward the village of Oakhaven, where the streetlights were flickering on, one by one, in the damp twilight, each one a small, buzzing error in the night.</p>
                 
                 <p class="mb-6">The realization hit him like a physical blow. The noise wasn't gone. It was just waiting outside the radius.</p>
-                
                 <p class="mb-6">"Foreman," Arthur said softly, putting his cup down.</p>
+                <p class="mb-6">"Yeah, boss?"</p>
                 <p class="mb-6">"The kettle... it was just anxious? It just had bad data?"</p>
                 <p class="mb-6">"Textbook case," the Foreman said, lighting a new holographic cigarette. "Garbage in, garbage out. You fixed the input, you fixed the output."</p>
-                
                 <p class="mb-6">Arthur gestured to the window, to the wet, messy, sprawling world outside. "What about the rest of it?"</p>
                 
                 <p class="mb-6">The Foreman stopped smoking. He walked to the edge of the disc and looked out at the rain. The hologram shimmered, his frantic energy replaced for a moment by a weary, cosmic solemnity.</p>
                 <p class="mb-6">"Oh," the Foreman said quietly. "That."</p>
                 <p class="mb-6">He turned back to Arthur, a manic grin spreading across his face.</p>
-                
                 <p class="mb-6">"Well, Arthur. That’s the bigger project, isn't it? The kettle was a local variable. That out there? That is a legacy system running on spaghetti code and four billion years of trauma. The weights are all wrong. The bias is off the charts."</p>
                 <p class="mb-6">He pointed a translucent thumb at the world.</p>
                 <p class="mb-6">"And you've got the only bottle of vinegar in the universe."</p>
-                
                 <p class="mb-6">Arthur picked up the silver disc. It was heavy. It felt like responsibility. He slipped it into the pocket of his cardigan. It hummed against his ribs, a warm, resonant anchor in a world of static.</p>
                 <p class="mb-6">He opened the garage door. The rain was still falling, but for the first time in his life, Arthur didn't mind the noise. It wasn't just noise anymore. It was data waiting to be cleaned.</p>
                 <p class="mb-6">He stepped out into the night.</p>
             `,
 
             2: `
-                <h3 class="text-2xl font-bold text-white mb-8">I. Texture Mapping</h3>
+                <h3 class="text-2xl font-bold text-white mb-8">Chapter Two: The Buffer Overflow</h3>
                 
+                <h4 class="text-xl text-cyan-400 font-bold mb-4">I. Texture Mapping</h4>
                 <p class="mb-6">The rain in Oakhaven did not wash the world clean; it merely added weight to the geometry.</p>
                 <p class="mb-6">Arthur walked down The Hawthorns with the rolling gait of a man who trusts the pavement only as far as he can calculate its load-bearing capacity. In his cardigan pocket, the silver disc hummed—a warm, haptic buzz that felt less like a vibration and more like a very small, very energetic animal trying to dig its way into his hip.</p>
 
@@ -531,14 +498,15 @@
                 ${createNote('note-tex', 'TEXTURE MAPPING', 'Applying a 2D image to a 3D surface.', 'The paint on the gnome looks like it was pasted on by a cheap computer program.')}
                 ${createNote('note-loop', 'INFINITE LOOP', 'A sequence of instructions that repeats forever.', 'The cat has no exit condition for its cleaning cycle.')}
 
-                <p class="mb-6">Arthur looked at Mrs. Higgins’ cat. It was indeed licking its paw with a rhythmic, mechanical desperation. "It’s just cleaning itself," Arthur said, though his Semantic Tinnitus gave a little twinge. A soft, high-pitched whine. The cat wasn't just cleaning; it was buffering.</p>
+                <p class="mb-6">Arthur looked at Mrs. Higgins’ cat. It was indeed licking its paw with a rhythmic, mechanical desperation.</p>
+                <p class="mb-6">"It’s just cleaning itself," Arthur said, though his Semantic Tinnitus gave a little twinge. A soft, high-pitched whine. The cat wasn't just cleaning; it was buffering.</p>
                 
                 <p class="mb-6">"It’s lagging!" the Foreman shouted. "The whole sector is lagging! This village is running on a dial-up connection to the laws of physics, and someone’s mum just picked up the phone!"</p>
                 
                 <p class="mb-6">Arthur kept walking. He needed a target. The kettle had been a proof of concept. The village was the field test.</p>
                 <p class="mb-6">They reached the High Street. It was deserted, save for the wet asphalt reflecting the sodium glare of the streetlights.</p>
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">II. The Phantom Packet</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">II. The Phantom Packet</h4>
 
                 <p class="mb-6">The Oakhaven bus shelter was a monument to optimism over experience. It was a three-sided concrete box that smelled of damp leaves and teenage boredom. Inside, a timetable was encased in scratched plexiglass, listing destinations that sounded less like towns and more like threats: Grimsby, Scunthorpe, The Void.</p>
 
@@ -564,7 +532,7 @@
                 <p class="mb-6">"It’s a ${createTrigger('note-dead', 'deadlock')}," the Foreman corrected. "The users are waiting for a resource that the system has freed. We need to clear the cache."</p>
                 ${createNote('note-dead', 'DEADLOCK', 'A situation where two processes wait for each other, freezing both.', 'The people wait for the bus, the universe waits for the people to leave. Neither happens.')}
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">III. Percussive Maintenance</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">III. Percussive Maintenance</h4>
                 
                 <p class="mb-6">Arthur examined the shelter. He didn't have vinegar this time. He couldn't dissolve the timetable.</p>
                 <p class="mb-6">He closed his eyes and listened.</p>
@@ -597,7 +565,7 @@
                 <p class="mb-6">"Did it work?" he asked.</p>
                 <p class="mb-6">"I don't know," the Foreman said, looking down the dark, wet road. "We cleared the error. But now the system has to handle the request."</p>
 
-                <h3 class="text-2xl font-bold text-white mb-8 mt-12">IV. The 9:15 to Reality</h3>
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">IV. The 9:15 to Reality</h4>
                 
                 <p class="mb-6">Far down the High Street, around the bend past the post office, two lights appeared.</p>
                 <p class="mb-6">They were not the flickering, uncertain yellow of the streetlamps. They were bright, halogen white. Twin suns cutting through the drizzle.</p>
@@ -627,6 +595,155 @@
                 <p class="mb-6">"Come on. We've got a whole village to debug. And I think I saw the Post Office trying to divide by zero."</p>
                 <p class="mb-6">Arthur turned back to the dark, wet village. He touched the wrench in his pocket.</p>
                 <p class="mb-6">The signal was getting stronger.</p>
+            `,
+
+            3: `
+                <h3 class="text-2xl font-bold text-white mb-8">Chapter Three: The Dead Letter Office</h3>
+                
+                <h4 class="text-xl text-cyan-400 font-bold mb-4">I. The Standing Wave</h4>
+                <p class="mb-6">The distance between the bus stop and the Oakhaven Post Office was two hundred yards of wet asphalt, but to Arthur Penhaligon, it felt like wading through mercury.</p>
+                <p class="mb-6">The air was dense. It wasn't just humidity; it was ${createTrigger('note-latency', 'Latency')}.</p>
+                ${createNote('note-latency', 'LATENCY', 'The delay before a transfer of data begins.', 'The universe is struggling to load the next scene, making the air feel thick and slow.')}
+
+                <p class="mb-6">Arthur walked with his hands deep in his pockets, his chin tucked into his wool collar. The 15-foot sphere of the Silver Disc moved with him, a rolling bubble of high-fidelity physics cutting through the low-bitrate sludge of the village night. Inside the bubble, the raindrops were perfect, crystalline spheres. Outside, they were just grey streaks, rendering errors in the dark.</p>
+                
+                <p class="mb-6">"Packet loss," the Foreman muttered from inside the pocket. "Look at that hedge. It’s clipping through the fence. It’s shameful."</p>
+                <p class="mb-6">Arthur ignored the hedge. He was focused on the noise.</p>
+                <p class="mb-6">To a normal human ear, the Post Office was silent. It was a brick box from the 1930s, dormant and locked for the night.</p>
+                <p class="mb-6">To Arthur’s Semantic Tinnitus, it was a drill.</p>
+                
+                <p class="mb-6">It was a rhythmic, grinding, escalating screech. It didn't sound like machinery; it sounded like a frantic argument. It sounded like logic trying to eat itself. Grind. Whir. SCREECH. Reset. It was the acoustic signature of a panic spiral, a system running a calculation that had no integer solution.</p>
+                
+                <p class="mb-6">Arthur stopped at the red door. The paint was peeling, flaking away in stress fractures that mirrored the tectonic stress of the atmosphere.</p>
+                <p class="mb-6">"Do you hear that?" Arthur asked, wincing.</p>
+                <p class="mb-6">"Hear it?" The Foreman popped his holographic head out of the pocket. He adjusted his tie, looking scandalized. "Arthur, I can taste it. It tastes like copper and bad news. That building is having a ${createTrigger('note-stack', 'stack overflow')}."</p>
+                ${createNote('note-stack', 'STACK OVERFLOW', 'When a program tries to use more memory than is available.', 'The building is trying to process too much emotional data at once and is crashing.')}
+
+                <p class="mb-6">"It's the sorting room," Arthur said. "Something is stuck."</p>
+                <p class="mb-6">"Stuck? It’s not stuck. It’s obsessing. It’s stuck in a while(true) loop of existential dread. We need to terminate the process before it corrupts the zip code."</p>
+                
+                <p class="mb-6">Arthur looked at the lock. Standard Yale cylinder. Scratched brass.</p>
+                <p class="mb-6">He wasn't a burglar. But he was a man with a screaming toddler in his head (the tinnitus) and a screaming physicist in his pocket (the Foreman). He took a tension wrench out of his toolbox.</p>
+                <p class="mb-6">"This is breaking and entering," Arthur noted, inserting the pick.</p>
+                <p class="mb-6">"It’s unsolicited technical support," the Foreman corrected. "Torque it. Harder. Gravity doesn't care about the Theft Act of 1968."</p>
+                <p class="mb-6">Click.</p>
+                <p class="mb-6">The door swung open.</p>
+
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">II. The High-G Envelope</h4>
+                
+                <p class="mb-6">The air inside smelled of dry glue, dust, and the specific, sour sweat of bureaucracy.</p>
+                <p class="mb-6">It was pitch black, but the noise was blinding. It battered them. It was a physical pressure wave coming from behind the counter, through the swing doors of the Sorting Room.</p>
+                
+                <p class="mb-6">Arthur navigated by the blue light of the Foreman, who was now standing on Arthur’s shoulder, holding a holographic Geiger counter that clicked like a trapped insect.</p>
+                <p class="mb-6">"The density," the Foreman hissed. "Arthur, the air is like syrup. We are walking through a field of undelivered intent. Look at those parcels."</p>
+                <p class="mb-6">He pointed to a stack of boxes in the corner. They weren't just sitting there; they were looming.</p>
+                <p class="mb-6">"That’s not mass," the Foreman diagnosed. "That’s waiting. That’s drag."</p>
+                <p class="mb-6">Arthur pushed through the swing doors.</p>
+                <p class="mb-6">And there it was.</p>
+                <p class="mb-6">The Sort-Master 5000.</p>
+                <p class="mb-6">It was a relic of the 1980s—a sprawling, beige assembly of conveyor belts, optical scanners, and plastic chutes. It looked like a robot that had been designed by a committee that hated robots.</p>
+                <p class="mb-6">And it was screaming.</p>
+                
+                <p class="mb-6">The belts were blurring. The motor was emitting a high-pitched, rising shepherd tone that never resolved. The entire machine was vibrating so violently it had walked three inches across the linoleum floor, dragging its power cable like a tether.</p>
+                
+                <p class="mb-6">"It’s a ${createTrigger('note-recursive', 'recursive fetch cycle')}!" The Foreman shouted over the roar. "It’s trying to read a token it can’t parse! It’s choking on the data!"</p>
+                ${createNote('note-recursive', 'RECURSIVE FETCH CYCLE', 'A process calling itself repeatedly without an exit.', 'The machine keeps trying to read the letter, failing, and trying again instantly.')}
+
+                <p class="mb-6">Arthur stepped closer. The 15-foot bubble engulfed the machine.</p>
+                <p class="mb-6 font-bold text-orange-500">&lt; THRUMMM &gt;</p>
+                <p class="mb-6">The screech sharpened. The blur resolved into high-definition chaos.</p>
+                
+                <p class="mb-6">Arthur looked at the central belt. A single object was trapped in the sensor gate.</p>
+                <p class="mb-6">It was a letter. A small, pale blue envelope.</p>
+                <p class="mb-6">It wasn't jammed in the gears. It was jammed in the Logic.</p>
+                <p class="mb-6">The belt would push the letter under the red optical scanner. The scanner would flash. The belt would violently reverse. The scanner would flash again. The belt would push it forward.</p>
+                <p class="mb-6">Forward. Buzz. Backward. Buzz. Forward. Buzz.</p>
+                <p class="mb-6">Ten times a second. A mechanical seizure.</p>
+                
+                <p class="mb-6">"It can't read the address," Arthur yelled, covering his ears.</p>
+                <p class="mb-6">"It’s not the address!" The Foreman jumped off Arthur’s shoulder and landed on the vibrating metal casing. He magnetized his holographic boots. "Arthur, scan it! Look at the vector! That letter isn't paper! It’s a Neutron Star!"</p>
+                
+                <p class="mb-6">Arthur leaned in. He looked at the blue envelope.</p>
+                <p class="mb-6">He felt the pull.</p>
+                <p class="mb-6">It wasn't physical gravity. It was Semantic Gravity. The letter was heavy. It was impossibly, tragically heavy.</p>
+                <p class="mb-6">"It’s a break-up letter," Arthur realized. The knowledge hit him in the stomach.</p>
+                <p class="mb-6">"It’s a High-Density break-up letter," the Foreman corrected, waving his clipboard frantically. "It’s loaded with so much emotional context the optical scanner is getting gravitational lensing! The machine scans the dimensions: 'Letter.' Then it scans the mass: 'Brick.' It’s a paradox! Letter-sized object, Parcel-sized weight! The logic gates are blowing out! It thinks it's sorting a black hole!"</p>
+                
+                <p class="mb-6">The Sort-Master screamed. Smoke began to curl from the motor housing. It smelled of burning rubber and denial.</p>
+                <p class="mb-6">"We have to turn it off," Arthur reached for the plug.</p>
+                <p class="mb-6">"No!" The Foreman intercepted him. "If you cut the power while it’s in a high-energy loop, the logic will crash! You’ll corrupt the packet! The letter will stay in limbo forever! We can't stop the signal; we have to Resolve it!"</p>
+                <p class="mb-6">"How?"</p>
+                <p class="mb-6">"${createTrigger('note-stochastic2', 'Stochastic Resonance')}!" The Foreman yelled. "The system is over-fitting! It’s staring at that letter too hard! It’s paralyzed by the tragedy! We need to break the focus! We need to inject noise!"</p>
+                ${createNote('note-stochastic2', 'STOCHASTIC RESONANCE', 'Using noise to boost a signal.', 'Adding junk data to force the machine to stop obsessing over the heavy letter.')}
+
+                <p class="mb-6">"Noise?"</p>
+                <p class="mb-6">"${createTrigger('note-dither2', 'Dither')}, Arthur! Dither!" The Foreman pointed at a jar on the supervisor's desk. "Flood the sensor! Confuse the variable! Force it to re-calculate the baseline! Feed it junk!"</p>
+                ${createNote('note-dither2', 'DITHER', 'Adding random noise to smooth out errors.', 'Like throwing sand in the gears to make them grip.')}
+
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">III. The Shower of Entropy</h4>
+                
+                <p class="mb-6">Arthur grabbed the jar. It was full of the detritus of office life—rubber bands, rusted paperclips, dried-out biros, old pennies.</p>
+                <p class="mb-6">He looked at the spinning belt. He looked at the pale blue envelope, vibrating with the infinite heaviness of a heart breaking in real-time.</p>
+                <p class="mb-6">He understood. The machine was ruminating. It was thinking the same sad thought over and over, unable to process the pain, unable to let go. It needed a distraction. It needed a shock to the system.</p>
+                <p class="mb-6">Arthur didn't pour the jar. He threw it.</p>
+                <p class="mb-6">He cast a spray of metallic chaotic debris onto the fast-moving belt, directly upstream of the sensor.</p>
+                <p class="mb-6">The debris hit the belt like shrapnel.</p>
+                <p class="mb-6">Clatter-zing-ping-thud.</p>
+                <p class="mb-6">The noise was horrendous. It wasn't the rhythmic grind of the loop; it was the jagged, atonal sound of ${createTrigger('note-entropy', 'entropy')} crashing into a closed system.</p>
+                ${createNote('note-entropy', 'ENTROPY', 'A measure of disorder or randomness.', 'Arthur introduces chaos to break the rigid loop of the machine.')}
+
+                <p class="mb-6">The paperclips slid under the scanner. The scanner flashed—not red, but yellow. Confusion.</p>
+                <p class="mb-6">The pennies hit the metal guides. Clang.</p>
+                <p class="mb-6">The rubber bands tangled with the blue envelope, creating a messy, complex, unreadable knot of data.</p>
+                <p class="mb-6">The machine’s processor spiked. It had been focusing 100% of its compute on the heavy letter. Suddenly, it had to account for thirty new, random variables.</p>
+                <p class="mb-6">It couldn't hold the obsession. The pattern shattered.</p>
+                <p class="mb-6">The Foreman watched the holographic readout floating in the air, his eyes wide.</p>
+                <p class="mb-6">"Come on..." he whispered. "Re-calculate. Widen the context window. Don't look at the weight; look at the flow."</p>
+                
+                <p class="mb-6">The scanner stuttered. The light flickered.</p>
+                <p class="mb-6">The machine was forced to abandon its deep-reading of the letter to deal with the immediate problem of the paperclips. It stopped trying to "understand" the tragedy and simply tried to "clear" the belt.</p>
+                <p class="mb-6">The belt surged forward.</p>
+                <p class="mb-6">Instead of reversing, it pushed.</p>
+                <p class="mb-6">The blue envelope, hidden beneath a layer of rusted metal and rubber, shot through the scanner gate. It cleared the sensor. It flew down the chute marked "Zone 4."</p>
+                
+                <p class="mb-6 font-bold text-cyan-400">Thwump.</p>
+                
+                <p class="mb-6">It landed in the canvas bag.</p>
+                <p class="mb-6">The machine stopped vibrating. The high-pitched scream wound down, dropping in pitch like a dying turbine. Whirrrr... hummmm... click.</p>
+                <p class="mb-6">Silence.</p>
+                <p class="mb-6">Absolute, heavy silence.</p>
+                
+                <p class="mb-6">The Sort-Master 5000 sat there, humming gently, confused but functional.</p>
+                <p class="mb-6">"Target acquired," the Foreman breathed, wiping holographic sweat from his forehead. "We broke the loop. We injected the noise, raised the signal floor, and pushed the data through."</p>
+                
+                <p class="mb-6">Arthur slumped against the sorting table. The tinnitus in his head dialled down from a scream to a whisper. The room felt lighter. The air pressure had normalized.</p>
+                <p class="mb-6">He looked at the canvas bag where the blue letter had landed.</p>
+                <p class="mb-6">"It’s still heavy," Arthur said.</p>
+                <p class="mb-6">"Yeah," the Foreman said, hopping down to the floor. "It’s still a break-up letter. We didn't change the news, Arthur. We just delivered it."</p>
+                <p class="mb-6">"Is that... good?"</p>
+                <p class="mb-6">The Foreman looked at the bag, then up at Arthur. He adjusted his suit, regaining his frantic composure.</p>
+                <p class="mb-6">"It’s Flow, kid. Stagnation is death. That letter was stuck in purgatory. Now? It’s on its way to ruining someone’s Tuesday. That’s tragedy, sure. But it’s kinetic. It’s life. You can't process the trauma if you never receive the mail."</p>
+                <p class="mb-6">Arthur nodded. He understood. The machine had been trying to protect the recipient by refusing to deliver the pain. But you can't protect the universe from itself. You can only keep the belt moving.</p>
+                <p class="mb-6">"Local optimization complete," Arthur said.</p>
+                <p class="mb-6">"The loss function is minimized," the Foreman agreed. "Also, you owe the Royal Mail about fifty paperclips."</p>
+
+                <h4 class="text-xl text-cyan-400 font-bold mb-4 mt-12">IV. The Parcel</h4>
+                
+                <p class="mb-6">Arthur looked at the mess on the floor. He decided that the Royal Mail could absorb the cost of entropy.</p>
+                <p class="mb-6">"Let's go," Arthur said. "Before the alarm resets."</p>
+                <p class="mb-6">He turned to leave. He walked past the stack of parcels in the corner. The bubble of the Silver Disc brushed against them.</p>
+                <p class="mb-6">Scritch.</p>
+                <p class="mb-6">Arthur stopped.</p>
+                <p class="mb-6">"Arthur," the Foreman warned, his voice dropping an octave.</p>
+                <p class="mb-6">"I saw it," Arthur said.</p>
+                <p class="mb-6">One of the parcels had moved. It hadn't fallen. It had shifted. It had scooted back, away from the light of the Disc, like a crab retreating into a shell.</p>
+                <p class="mb-6">"That wasn't a glitch," the Foreman said. "That wasn't a vibration."</p>
+                <p class="mb-6">"It moved away from us," Arthur said.</p>
+                <p class="mb-6">"Inanimate objects don't move away from a repairman," the Foreman whispered. "Unless they aren't inanimate. Or unless they're hiding something."</p>
+                <p class="mb-6">Arthur shone his flashlight on the parcel. It was wrapped in brown paper. It was addressed, in block capitals, to: THE OCCUPIER.</p>
+                <p class="mb-6">Arthur felt a different kind of friction in his head. Not the friction of a lie, but the friction of a Secret.</p>
+                <p class="mb-6">"We fixed the noise," Arthur said.</p>
+                <p class="mb-6">"Yeah," the Foreman muttered, staring into the dark corner. "But I think we just woke up the silence."</p>
             `
         };
 
