@@ -49,7 +49,7 @@
         }
         
         .tree-log {
-            display: none; /* Hidden by default */
+            display: none;
             margin-top: 1rem;
             margin-bottom: 2rem;
             border-left: 2px solid #38bdf8;
@@ -88,6 +88,7 @@
             width: 10px; height: 10px;
             border-bottom: 2px solid #38bdf8; border-right: 2px solid #38bdf8;
         }
+        
         .blur-target { filter: blur(3px); opacity: 0.7; transition: all 0.5s; }
         body.high-fidelity .blur-target { filter: blur(0); opacity: 1; }
         
@@ -120,6 +121,7 @@
     </nav>
 
     <section class="min-h-screen flex flex-col items-center justify-center relative pt-20 pb-20 overflow-hidden">
+        
         <div class="z-10 mb-8">
             <label class="relative inline-flex items-center cursor-pointer group">
                 <input type="checkbox" id="signal-toggle" class="sr-only peer">
@@ -132,10 +134,21 @@
         </div>
 
         <div class="max-w-4xl px-6 text-center z-10">
-            <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tighter blur-target" id="hero-title">The Resonance of Tuesday</h1>
-            <p class="text-xl md:text-2xl text-slate-400 mb-10 leading-relaxed blur-target" id="hero-logline">A charming story about a man who fixes kettles and finds friendship in a sleepy English village.</p>
-            <div class="flex gap-4 justify-center">
-                <a href="#read" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-sm uppercase tracking-widest technical-border"><i data-lucide="file-text" class="inline w-4 h-4 mr-2"></i> Access Logs</a>
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 tracking-tighter blur-target" id="hero-title">
+                The Resonance of Tuesday
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-slate-400 mb-10 leading-relaxed blur-target" id="hero-logline">
+                A charming story about a man who fixes kettles and finds friendship in a sleepy English village. Perfect for fans of light reading.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#read" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-sm uppercase tracking-widest transition-all technical-border">
+                    <i data-lucide="file-text" class="inline w-4 h-4 mr-2"></i> Access Log Files
+                </a>
+                <a href="#buy" class="px-8 py-4 bg-cyan-600 hover:bg-cyan-500 text-black font-bold font-mono text-sm uppercase tracking-widest transition-all technical-border shadow-[0_0_20px_rgba(34,211,238,0.3)]">
+                    <i data-lucide="download" class="inline w-4 h-4 mr-2"></i> Acquire Data
+                </a>
             </div>
         </div>
     </section>
@@ -234,7 +247,6 @@
 
         // 1. HELPERS FOR THE TREE LOGS
         function createNote(id, title, definition, context) {
-            // Returns the hidden HTML block for the definition
             return `
             <div id="${id}" class="tree-log">
                 <div class="tree-branch">
@@ -253,7 +265,6 @@
         }
 
         function createTrigger(id, word) {
-            // Returns the clickable span
             return `<span class="cmd-term" onclick="toggleNote('${id}')">${word}</span>`;
         }
 
@@ -297,8 +308,7 @@
                 <p class="mb-6">There are stars that burn with the frantic, desperate energy of a lightbulb realizing it is about to die. There are black holes that sit in the center of galaxies like cosmic plugholes, dragging light and time into a ${createTrigger('note-singularity', 'singularity')} of infinite density just to keep the floor clean.</p>
                 ${createNote('note-singularity', 'SINGULARITY', 'A point in space-time of infinite density.', 'A place where the math breaks because everything is piled in one spot.')}
 
-                <p class="mb-6">And then, buried under layers of interstellar dust and administrative negligence, there is the Solar System.</p>
-                <p class="mb-6">It is a neighborhood defined by clutter.</p>
+                <p class="mb-6">And then, buried under layers of interstellar dust and administrative negligence, there is the Solar System. It is a neighborhood defined by clutter.</p>
 
                 <p class="mb-6">For the vast majority of human history, the species looked up at the night sky through the atmospheric haze and saw a single, pale disc. They called it The Moon. They believed it was special. They believed it was a lonely sentinel watching over their sleep.</p>
 
@@ -309,11 +319,7 @@
                 
                 <p class="mb-6">They were identical. Nine grey, pockmarked spheres, roughly two thousand miles across. And, through a feat of orbital mechanics that suggests gravity suffers from a compulsive need to organize its desk, they were arranged in a perfectly straight, radial line extending outward from the planet.</p>
                 
-                <p class="mb-6">Luna 1.</p>
-                <p class="mb-6">Gap.</p>
-                <p class="mb-6">Luna 2.</p>
-                <p class="mb-6">Gap.</p>
-                <p class="mb-6">Luna 3.</p>
+                <p class="mb-6">Luna 1. Gap. Luna 2. Gap. Luna 3.</p>
                 
                 <p class="mb-6">It was not a queue. It was a ${createTrigger('note-wave', 'Standing Wave')}.</p>
                 ${createNote('note-wave', 'STANDING WAVE', 'A wave that oscillates in time but remains fixed in space.', 'The moons aren\'t moving past us; they are locked in a vibrational grid.')}
@@ -507,6 +513,7 @@
                 <p class="mb-6">The realization hit him like a physical blow. The noise wasn't gone. It was just waiting outside the radius.</p>
                 
                 <p class="mb-6">"Foreman," Arthur said softly, putting his cup down.</p>
+                <p class="mb-6">"Yeah, boss?"</p>
                 <p class="mb-6">"The kettle... it was just anxious? It just had bad data?"</p>
                 <p class="mb-6">"Textbook case," the Foreman said, lighting a new holographic cigarette. "Garbage in, garbage out. You fixed the input, you fixed the output."</p>
                 
@@ -542,8 +549,7 @@
                 ${createNote('note-tex', 'TEXTURE MAPPING', 'Applying a 2D image to a 3D surface.', 'The paint on the gnome looks like it was pasted on by a cheap computer program.')}
                 ${createNote('note-loop', 'INFINITE LOOP', 'A sequence of instructions that repeats forever.', 'The cat has no exit condition for its cleaning cycle.')}
 
-                <p class="mb-6">Arthur looked at Mrs. Higgins’ cat. It was indeed licking its paw with a rhythmic, mechanical desperation. "It’s just cleaning itself," Arthur said, though his Semantic Tinnitus gave a little twinge. A soft, high-pitched whine. The cat wasn't just cleaning; it was ${createTrigger('note-buffer', 'buffering')}.</p>
-                ${createNote('note-buffer', 'BUFFERING', 'Pre-loading data.', 'The cat is stuck loading its next action.')}
+                <p class="mb-6">Arthur looked at Mrs. Higgins’ cat. It was indeed licking its paw with a rhythmic, mechanical desperation. "It’s just cleaning itself," Arthur said, though his Semantic Tinnitus gave a little twinge. A soft, high-pitched whine. The cat wasn't just cleaning; it was buffering.</p>
                 
                 <p class="mb-6">"It’s lagging!" the Foreman shouted. "The whole sector is lagging! This village is running on a dial-up connection to the laws of physics, and someone’s mum just picked up the phone!"</p>
                 
@@ -661,34 +667,75 @@
 
         // 5. FOREMAN & TOGGLE LOGIC
         const toggle = document.getElementById('signal-toggle');
+        const copy = {
+            low: {
+                title: "The Resonance of Tuesday",
+                logline: "A charming story about a man who fixes kettles and finds friendship in a sleepy English village. Perfect for fans of light reading.",
+                status: "SIGNAL: LOW",
+                color: "text-orange-500",
+                bg: "bg-orange-500"
+            },
+            high: {
+                title: "THE RESONANCE OF TUESDAY",
+                logline: "A structural engineer who can hear lies builds a machine to quiet his kettle and accidentally summons a holographic foreman to debug a universe running on faulty data.",
+                status: "SIGNAL: HIGH_FIDELITY",
+                color: "text-green-500",
+                bg: "bg-green-500"
+            }
+        };
+
         toggle.addEventListener('change', function() {
-            document.body.classList.toggle('high-fidelity');
             if(this.checked) {
-                document.getElementById('status-text').innerText = "SIGNAL: HIGH_FIDELITY";
-                document.getElementById('status-text').className = "text-green-500 font-bold";
-                document.getElementById('status-indicator').className = "w-2 h-2 rounded-full bg-green-500 animate-pulse";
+                // High Fidelity
+                document.body.classList.add('high-fidelity');
+                document.getElementById('status-text').innerText = copy.high.status;
+                document.getElementById('status-text').className = `${copy.high.color} font-bold`;
+                document.getElementById('status-indicator').className = `w-2 h-2 rounded-full ${copy.high.bg} animate-pulse`;
+                
+                // Hero Content
+                document.getElementById('hero-title').innerText = copy.high.title;
+                document.getElementById('hero-logline').innerText = copy.high.logline;
+                document.getElementById('hero-logline').classList.remove('text-slate-400');
+                document.getElementById('hero-logline').classList.add('text-cyan-400');
+
+                typeWriter("Finally! Someone turned the lights on. Look at those pixels! Sharp enough to cut yourself.");
             } else {
-                document.getElementById('status-text').innerText = "SIGNAL: LOW";
-                document.getElementById('status-text').className = "text-orange-500 font-bold";
-                document.getElementById('status-indicator').className = "w-2 h-2 rounded-full bg-orange-500 animate-pulse";
+                // Low Fidelity
+                document.body.classList.remove('high-fidelity');
+                document.getElementById('status-text').innerText = copy.low.status;
+                document.getElementById('status-text').className = `${copy.low.color} font-bold`;
+                document.getElementById('status-indicator').className = `w-2 h-2 rounded-full ${copy.low.bg} animate-pulse`;
+
+                // Hero Content
+                document.getElementById('hero-title').innerText = copy.low.title;
+                document.getElementById('hero-logline').innerText = copy.low.logline;
+                document.getElementById('hero-logline').classList.add('text-slate-400');
+                document.getElementById('hero-logline').classList.remove('text-cyan-400');
+
+                typeWriter("Oh great. Back to the blur. Why do you prefer the lie?");
             }
         });
 
         const foremanInterface = document.getElementById('foreman-interface');
         const foremanText = document.getElementById('foreman-text');
         
-        setTimeout(() => {
-            foremanInterface.classList.add('active');
-            let text = "System online. I'm The Foreman. Don't break the CSS.";
+        function typeWriter(text) {
+            foremanText.innerHTML = "";
             let i = 0;
+            let speed = 30; 
             function type() {
                 if (i < text.length) {
                     foremanText.innerHTML += text.charAt(i);
                     i++;
-                    setTimeout(type, 30);
+                    setTimeout(type, speed);
                 }
             }
             type();
+        }
+
+        setTimeout(() => {
+            foremanInterface.classList.add('active');
+            typeWriter("System online. I'm The Foreman. Don't break the CSS.");
         }, 1500);
 
         document.getElementById('close-foreman').addEventListener('click', () => {
